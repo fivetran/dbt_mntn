@@ -1,0 +1,287 @@
+version: 2
+
+models:
+  - name: stg_mntn__advertiser
+    description: Cleaned and renamed daily account-level performance metrics. One row per MNTN advertiser account per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+        tests:
+          - not_null
+      - name: account_name
+        description: "{{ doc('account_name') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__advertiser_info
+    description: Cleaned and renamed daily metadata snapshot for the MNTN advertiser account. One row per account per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+        tests:
+          - not_null
+      - name: account_time_zone
+        description: Time zone configured for the advertiser account.
+      - name: account_created_at
+        description: Timestamp when the advertiser account was created.
+
+  - name: stg_mntn__campaign_group
+    description: Cleaned and renamed daily campaign-level performance metrics, sourced from MNTN's campaign_group table (the platform's preferred campaign-level reporting grain). One row per campaign per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+        tests:
+          - not_null
+      - name: campaign_name
+        description: "{{ doc('campaign_name') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__campaign_info
+    description: Cleaned and renamed daily metadata snapshot at MNTN's finer campaign_id grain, including flight scheduling and status. Not currently joined to mntn__campaign_report — the cardinality between this table's campaign_id and campaign_group's campaign_id is unconfirmed. One row per campaign per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: Unique identifier for the campaign, at MNTN's finer campaign_id grain — a distinct id space from campaign_group's campaign_id (see model description).
+        tests:
+          - not_null
+      - name: campaign_name
+        description: "{{ doc('campaign_name') }}"
+      - name: campaign_status
+        description: Current status of the campaign (e.g. active, paused, ended).
+      - name: campaign_created_at
+        description: Timestamp when the campaign was created in MNTN.
+      - name: campaign_ended_at
+        description: Timestamp when the campaign was ended in MNTN.
+      - name: flight_start_at
+        description: Scheduled start of the campaign's flight (the date range during which it is set to deliver).
+      - name: flight_end_at
+        description: Scheduled end of the campaign's flight (the date range during which it is set to deliver).
+
+  - name: stg_mntn__creative_group
+    description: Cleaned and renamed daily ad-group-level performance metrics, sourced from MNTN's creative_group table (one TV commercial plus its tracking). One row per ad group per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+        tests:
+          - not_null
+      - name: ad_group_name
+        description: "{{ doc('ad_group_name') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__creative
+    description: Cleaned and renamed daily ad-level performance metrics, sourced from MNTN's creative table (the platform's most granular metrics grain). One row per ad per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: ad_id
+        description: "{{ doc('ad_id') }}"
+        tests:
+          - not_null
+      - name: ad_name
+        description: "{{ doc('ad_name') }}"
+      - name: creative_size
+        description: Dimensions or format of the creative (e.g. TV commercial length/aspect ratio).
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__creative_info
+    description: Cleaned and renamed daily metadata snapshot at the ad grain, including the ad's click-through tracking URL. One row per ad per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: ad_id
+        description: "{{ doc('ad_id') }}"
+        tests:
+          - not_null
+      - name: is_creative_active
+        description: Whether the creative is currently active.
+      - name: click_url
+        description: The creative's destination URL, including any tracking parameters appended by MNTN.
+
+  - name: stg_mntn__ad_info
+    description: Cleaned and renamed daily metadata snapshot at the ad grain covering ad-serving tag attributes. Same grain as stg_mntn__creative_info — a different metadata facet, not a deeper level. One row per ad per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: ad_id
+        description: "{{ doc('ad_id') }}"
+        tests:
+          - not_null
+      - name: ad_code
+        description: The ad-serving tag code associated with the creative.
+      - name: is_ad_tag_active
+        description: Whether the ad-serving tag is currently active. Distinct from stg_mntn__creative_info.is_creative_active, a different metadata facet at the same grain.
+      - name: is_ad_tag_approved
+        description: Whether the ad-serving tag has been approved.
+      - name: ad_serving_status
+        description: Current status of the ad-serving tag.
+      - name: ad_width
+        description: Width, in pixels, of the ad-serving tag.
+      - name: ad_height
+        description: Height, in pixels, of the ad-serving tag.
+      - name: ad_tag_created_at
+        description: Timestamp when the ad-serving tag was created.
+
+  - name: stg_mntn__analytics_by_country
+    description: Cleaned and renamed daily account-level performance metrics broken out by country. No campaign_id — MNTN's legacy API returns one table/dimension per request, so geo breakdowns cannot be crossed with campaign. One row per country per day.
+    columns:
+      - name: _fivetran_id
+        description: "{{ doc('fivetran_id') }}"
+        tests:
+          - not_null
+          - unique
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: country
+        description: Name of the country.
+      - name: country_iso_code
+        description: ISO country code.
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__analytics_by_state
+    description: Cleaned and renamed daily account-level performance metrics broken out by state/province. No campaign_id — MNTN's legacy API returns one table/dimension per request, so geo breakdowns cannot be crossed with campaign. One row per state/province per day.
+    columns:
+      - name: _fivetran_id
+        description: "{{ doc('fivetran_id') }}"
+        tests:
+          - not_null
+          - unique
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: region
+        description: Name of the state or province.
+      - name: region_code
+        description: Code identifying the state or province.
+      - name: region_country_code
+        description: Code identifying the country the state or province belongs to.
+      - name: region_unique_code
+        description: Globally unique code identifying the state or province.
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__segment
+    description: Cleaned and renamed daily audience/targeting-segment performance metrics. One row per segment per day.
+    columns:
+      - name: segment_report_pk
+        description: Surrogate key derived from source_relation, date_day, segment_id, and segment_name.
+        tests:
+          - not_null
+          - unique
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: segment_id
+        description: Unique identifier for the audience segment.
+        tests:
+          - not_null
+      - name: segment_name
+        description: Name of the audience segment.
+        tests:
+          - not_null
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('spend') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+
+  - name: stg_mntn__segment_info
+    description: Cleaned and renamed daily metadata snapshot for audience segments, including the segment's interest category and description. One row per segment per day.
+    columns:
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - not_null
+      - name: segment_id
+        description: Unique identifier for the audience segment.
+        tests:
+          - not_null
+      - name: segment_description
+        description: Description of the audience segment.
+      - name: segment_interest
+        description: Interest category associated with the audience segment.

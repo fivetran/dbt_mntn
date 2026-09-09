@@ -1,0 +1,667 @@
+version: 2
+
+sources:
+  - name: mntn
+    schema: "{{ var('mntn_schema', 'mntn') }}"
+    database: "{% if target.type != 'spark' %}{{ var('mntn_database', target.database) }}{% endif %}"
+
+    tables:
+      - name: advertiser
+        identifier: "{{ var('mntn_advertiser_identifier', 'advertiser') }}"
+        description: Daily account-level performance metrics for the MNTN advertiser account. The most granular field set of any table, including raw (unmodeled) and attribution-percentage variants unique to this grain.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: id
+            description: "{{ doc('account_id') }}"
+          - name: name
+            description: "{{ doc('account_name') }}"
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: viewable_impressions
+            description: Number of impressions that met MNTN's viewability threshold.
+          - name: viewable_impression_rate
+            description: Viewable impressions divided by total impressions.
+          - name: completed_views
+            description: Number of TV commercial views that played to completion.
+          - name: completed_view_rate
+            description: Completed views divided by total impressions.
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitors
+            description: Unique visitors driven to the advertiser's site.
+          - name: new_site_visitors
+            description: Unique site visitors who had not visited the site before.
+          - name: existing_site_visitors
+            description: Unique site visitors who had visited the site before.
+          - name: page_views
+            description: Total page views generated on the advertiser's site following ad exposure.
+          - name: average_page_views_per_visitor
+            description: Average number of page views per site visitor.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_users_reached
+            description: Unique individuals reached who had not been reached before.
+          - name: existing_users_reached
+            description: Unique individuals reached who had been reached before.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: raw_conversions
+            description: Unmodeled conversion count, prior to MNTN's attribution modeling.
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: raw_conversion_rate
+            description: Unmodeled conversion rate, prior to MNTN's attribution modeling.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: percentage_of_conversions
+            description: Share of the account's total conversions attributed to this row.
+          - name: conversion_attribution_percentage
+            description: Percentage of conversions MNTN's attribution model credits to this channel or tactic.
+          - name: raw_existing_site_visitors
+            description: Unmodeled count of existing site visitors, prior to MNTN's attribution modeling.
+          - name: raw_new_site_visitors
+            description: Unmodeled count of new site visitors, prior to MNTN's attribution modeling.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: raw_order_value
+            description: Unmodeled order value, prior to MNTN's attribution modeling.
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: raw_average_order_value
+            description: Unmodeled average order value, prior to MNTN's attribution modeling.
+          - name: percentage_of_order_value
+            description: Share of the account's total order value attributed to this row.
+          - name: order_value_attribution_percentage
+            description: Percentage of order value MNTN's attribution model credits to this channel or tactic.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cost_per_completed_view
+            description: Spend divided by completed views.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: advertiser_info
+        identifier: "{{ var('mntn_advertiser_info_identifier', 'advertiser_info') }}"
+        description: Daily metadata snapshot for the MNTN advertiser account. No metrics — contact and account profile fields only.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: advertiser_id
+            description: "{{ doc('account_id') }}"
+          - name: name
+            description: "{{ doc('account_name') }}"
+          - name: contact_first_name
+            description: First name of the advertiser account's primary contact.
+          - name: contact_last_name
+            description: Last name of the advertiser account's primary contact.
+          - name: contact_email
+            description: Email address of the advertiser account's primary contact.
+          - name: contact_mobile_phone
+            description: Mobile phone number of the advertiser account's primary contact.
+          - name: contact_office_phone
+            description: Office phone number of the advertiser account's primary contact.
+          - name: time_zone
+            description: Time zone configured for the advertiser account.
+          - name: create_time
+            description: Timestamp when the advertiser account was created.
+
+      - name: campaign_group
+        identifier: "{{ var('mntn_campaign_group_identifier', 'campaign_group') }}"
+        description: Daily campaign-level performance metrics. MNTN's documented preferred grain for campaign-level reporting — there is no separate metrics-bearing "campaign" table.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: id
+            description: "{{ doc('campaign_id') }}"
+          - name: name
+            description: "{{ doc('campaign_name') }}"
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: viewable_impressions
+            description: Number of impressions that met MNTN's viewability threshold.
+          - name: viewable_impression_rate
+            description: Viewable impressions divided by total impressions.
+          - name: completed_views
+            description: Number of TV commercial views that played to completion.
+          - name: completed_view_rate
+            description: Completed views divided by total impressions.
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitors
+            description: Unique visitors driven to the advertiser's site.
+          - name: new_site_visitors
+            description: Unique site visitors who had not visited the site before.
+          - name: existing_site_visitors
+            description: Unique site visitors who had visited the site before.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_users_reached
+            description: Unique individuals reached who had not been reached before.
+          - name: existing_users_reached
+            description: Unique individuals reached who had been reached before.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cost_per_completed_view
+            description: Spend divided by completed views.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: campaign_info
+        identifier: "{{ var('mntn_campaign_info_identifier', 'campaign_info') }}"
+        description: Daily metadata snapshot at the campaign_id grain, including flight scheduling and status. Added by MNTN in February 2026 to replace campaign_group_info. Relationship of campaign_id to campaign_group_id is unconfirmed — see the package README for details.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: campaign_id
+            description: Unique identifier for the campaign, at MNTN's finer campaign_id grain (distinct from campaign_group_id — see the package README).
+          - name: name
+            description: "{{ doc('campaign_name') }}"
+          - name: status
+            description: Current status of the campaign (e.g. active, paused, ended).
+          - name: start_time
+            description: Timestamp when the campaign was created in MNTN.
+          - name: end_time
+            description: Timestamp when the campaign was ended in MNTN.
+          - name: flight_start_time
+            description: Scheduled start of the campaign's flight (the date range during which it is set to deliver).
+          - name: flight_end_time
+            description: Scheduled end of the campaign's flight (the date range during which it is set to deliver).
+
+      - name: creative_group
+        identifier: "{{ var('mntn_creative_group_identifier', 'creative_group') }}"
+        description: Daily ad-group-equivalent performance metrics — one TV commercial plus its tracking (and Multi-Touch group, if used).
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: id
+            description: "{{ doc('ad_group_id') }}"
+          - name: name
+            description: "{{ doc('ad_group_name') }}"
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: viewable_impressions
+            description: Number of impressions that met MNTN's viewability threshold.
+          - name: viewable_impression_rate
+            description: Viewable impressions divided by total impressions.
+          - name: completed_views
+            description: Number of TV commercial views that played to completion.
+          - name: completed_view_rate
+            description: Completed views divided by total impressions.
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitors
+            description: Unique visitors driven to the advertiser's site.
+          - name: new_site_visitors
+            description: Unique site visitors who had not visited the site before.
+          - name: existing_site_visitors
+            description: Unique site visitors who had visited the site before.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_users_reached
+            description: Unique individuals reached who had not been reached before.
+          - name: existing_users_reached
+            description: Unique individuals reached who had been reached before.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cost_per_completed_view
+            description: Spend divided by completed views.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: creative
+        identifier: "{{ var('mntn_creative_identifier', 'creative') }}"
+        description: Daily ad-equivalent performance metrics — the most granular metrics table MNTN provides. No finer summary/metrics table exists below this grain.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: id
+            description: "{{ doc('ad_id') }}"
+          - name: name
+            description: "{{ doc('ad_name') }}"
+          - name: size
+            description: Dimensions or format of the creative (e.g. TV commercial length/aspect ratio).
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: viewable_impressions
+            description: Number of impressions that met MNTN's viewability threshold.
+          - name: viewable_impression_rate
+            description: Viewable impressions divided by total impressions.
+          - name: completed_views
+            description: Number of TV commercial views that played to completion.
+          - name: completed_view_rate
+            description: Completed views divided by total impressions.
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitors
+            description: Unique visitors driven to the advertiser's site.
+          - name: new_site_visitors
+            description: Unique site visitors who had not visited the site before.
+          - name: existing_site_visitors
+            description: Unique site visitors who had visited the site before.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_users_reached
+            description: Unique individuals reached who had not been reached before.
+          - name: existing_users_reached
+            description: Unique individuals reached who had been reached before.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cost_per_completed_view
+            description: Spend divided by completed views.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: creative_info
+        identifier: "{{ var('mntn_creative_info_identifier', 'creative_info') }}"
+        description: Daily metadata snapshot at the creative_id grain, including the creative's click-through tracking URL. Rebuilt by MNTN in February 2026.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: creative_id
+            description: "{{ doc('ad_id') }}"
+          - name: name
+            description: "{{ doc('ad_name') }}"
+          - name: active
+            description: Whether the creative is currently active.
+          - name: click_url
+            description: The creative's destination URL, including any tracking parameters appended by MNTN.
+
+      - name: ad_info
+        identifier: "{{ var('mntn_ad_info_identifier', 'ad_info') }}"
+        description: Daily metadata snapshot at the creative_id grain covering ad-serving tag attributes. Same grain as creative_info (day, creative_id) — a different metadata facet, not a deeper level. Added by MNTN in February 2026.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: creative_id
+            description: "{{ doc('ad_id') }}"
+          - name: name
+            description: "{{ doc('ad_name') }}"
+          - name: ad_code
+            description: The ad-serving tag code associated with the creative.
+          - name: active
+            description: Whether the ad-serving tag is currently active.
+          - name: approved
+            description: Whether the ad-serving tag has been approved.
+          - name: status
+            description: Current status of the ad-serving tag.
+          - name: width
+            description: Width, in pixels, of the ad-serving tag.
+          - name: height
+            description: Height, in pixels, of the ad-serving tag.
+          - name: create_time
+            description: Timestamp when the ad-serving tag was created.
+
+      - name: analytics_by_country
+        identifier: "{{ var('mntn_analytics_by_country_identifier', 'analytics_by_country') }}"
+        description: Daily account-level performance metrics broken out by country. No campaign_id — MNTN's legacy API returns one table/dimension per request, so geo breakdowns cannot be crossed with campaign.
+        columns:
+          - name: _fivetran_id
+            description: "{{ doc('fivetran_id') }}"
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: name
+            description: Name of the country.
+          - name: iso_code
+            description: ISO country code.
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: viewable_impressions
+            description: Number of impressions that met MNTN's viewability threshold.
+          - name: viewable_impression_rate
+            description: Viewable impressions divided by total impressions.
+          - name: completed_views
+            description: Number of TV commercial views that played to completion.
+          - name: completed_view_rate
+            description: Completed views divided by total impressions.
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitors
+            description: Unique visitors driven to the advertiser's site.
+          - name: new_site_visitors
+            description: Unique site visitors who had not visited the site before.
+          - name: existing_site_visitors
+            description: Unique site visitors who had visited the site before.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_users_reached
+            description: Unique individuals reached who had not been reached before.
+          - name: existing_users_reached
+            description: Unique individuals reached who had been reached before.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: analytics_by_state
+        identifier: "{{ var('mntn_analytics_by_state_identifier', 'analytics_by_state') }}"
+        description: Daily account-level performance metrics broken out by state/province. No campaign_id — MNTN's legacy API returns one table/dimension per request, so geo breakdowns cannot be crossed with campaign. Used as the source for region reporting (chosen over the DMA grain).
+        columns:
+          - name: _fivetran_id
+            description: "{{ doc('fivetran_id') }}"
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: name
+            description: Name of the state or province.
+          - name: code
+            description: Code identifying the state or province.
+          - name: parent_code
+            description: Code identifying the country the state or province belongs to.
+          - name: unique_code
+            description: Globally unique code identifying the state or province.
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: viewable_impressions
+            description: Number of impressions that met MNTN's viewability threshold.
+          - name: viewable_impression_rate
+            description: Viewable impressions divided by total impressions.
+          - name: completed_views
+            description: Number of TV commercial views that played to completion.
+          - name: completed_view_rate
+            description: Completed views divided by total impressions.
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitors
+            description: Unique visitors driven to the advertiser's site.
+          - name: new_site_visitors
+            description: Unique site visitors who had not visited the site before.
+          - name: existing_site_visitors
+            description: Unique site visitors who had visited the site before.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_users_reached
+            description: Unique individuals reached who had not been reached before.
+          - name: existing_users_reached
+            description: Unique individuals reached who had been reached before.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: segment
+        identifier: "{{ var('mntn_segment_identifier', 'segment') }}"
+        description: Daily audience/targeting-segment performance metrics — MNTN's audience concept, with no equivalent in other ad platforms. Five columns (site_visitor, existing_site_visitor, new_site_visitor, existing_user_reached, new_user_reached) were added in June 2026 and are singular, unlike the plural convention (*_visitors, *_reached) used on every other MNTN table — do not assume name parity when comparing to other tables.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: id
+            description: Unique identifier for the audience segment.
+          - name: name
+            description: Name of the audience segment.
+          - name: impressions
+            description: "{{ doc('impressions') }}"
+          - name: multi_touch_impressions
+            description: Impressions attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: multi_touch_spend
+            description: Spend attributed under MNTN's multi-touch (assisted) attribution model.
+          - name: tv_commercials_aired
+            description: Number of linear TV commercial airings.
+          - name: tv_spend
+            description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
+          - name: visits
+            description: "{{ doc('clicks') }}"
+          - name: visit_rate
+            description: Visits divided by total impressions.
+          - name: impression_visit_rate
+            description: Visits divided by impressions delivered.
+          - name: site_visitor
+            description: Unique visitors driven to the advertiser's site. Note - singular column name in the MNTN source, unlike site_visitors elsewhere in the schema; represents the same concept.
+          - name: new_site_visitor
+            description: Unique site visitors who had not visited the site before. Note - singular column name in the MNTN source, unlike new_site_visitors elsewhere in the schema; represents the same concept.
+          - name: existing_site_visitor
+            description: Unique site visitors who had visited the site before. Note - singular column name in the MNTN source, unlike existing_site_visitors elsewhere in the schema; represents the same concept.
+          - name: users_reached
+            description: Unique individuals reached by the ad.
+          - name: new_user_reached
+            description: Unique individuals reached who had not been reached before. Note - singular column name in the MNTN source, unlike new_users_reached elsewhere in the schema; represents the same concept.
+          - name: existing_user_reached
+            description: Unique individuals reached who had been reached before. Note - singular column name in the MNTN source, unlike existing_users_reached elsewhere in the schema; represents the same concept.
+          - name: frequency
+            description: Average number of times a household or user was exposed to the ad.
+          - name: user_visit_rate
+            description: Visit rate calculated against users reached rather than impressions.
+          - name: user_conversion_rate
+            description: Conversion rate calculated against users reached rather than impressions.
+          - name: conversions
+            description: "{{ doc('conversions') }}"
+          - name: conversion_rate
+            description: Conversions divided by total impressions.
+          - name: impression_conversion_rate
+            description: Conversions divided by impressions delivered.
+          - name: visit_conversion_rate
+            description: Conversions divided by site visits.
+          - name: order_value
+            description: "{{ doc('conversions_value') }}"
+          - name: average_order_value
+            description: Average order value per conversion.
+          - name: spend
+            description: "{{ doc('spend') }}"
+          - name: cost_per_visit
+            description: Spend divided by site visits.
+          - name: cpa
+            description: Cost per acquisition, as calculated by MNTN (spend divided by conversions).
+          - name: roas
+            description: Return on ad spend, as calculated by MNTN.
+          - name: roi
+            description: Return on investment, as calculated by MNTN.
+
+      - name: segment_info
+        identifier: "{{ var('mntn_segment_info_identifier', 'segment_info') }}"
+        description: Daily metadata snapshot for audience segments, including the segment's interest category and description.
+        columns:
+          - name: day
+            description: "{{ doc('date_day') }}"
+          - name: segment_id
+            description: Unique identifier for the audience segment.
+          - name: name
+            description: Name of the audience segment.
+          - name: description
+            description: Description of the audience segment.
+          - name: interest
+            description: Interest category associated with the audience segment.

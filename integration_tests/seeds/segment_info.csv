@@ -1,0 +1,5 @@
+_fivetran_deleted,_fivetran_synced,day,segment_id,description,interest
+false,2025-06-01T08:00:00,2025-06-01,6001,Households modeled to resemble Fictional Dental Co.'s existing patient base.,Dental & Oral Care
+false,2025-06-01T08:00:00,2025-06-01,6002,Households with recent purchase signal for teeth-whitening products.,Beauty & Personal Care
+false,2025-08-01T08:00:00,2025-08-01,6003,CTV households within Fictional Dental Co.'s local service area.,Local Services
+false,2025-11-01T08:00:00,2025-11-01,6004,Households actively shopping for holiday gifts in November/December.,Gifts & Holiday Shopping
