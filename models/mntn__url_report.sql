@@ -1,8 +1,9 @@
 -- One row per destination URL per ad per day
 -- Sourced from creative_info.click_url, MNTN's only URL field. Parsed with the same generic
 -- URL-parsing pattern other ad_reporting platforms use on their own single raw URL field:
--- split_part for base_url, dbt_utils.get_url_host()/get_url_path(), and dbt_utils.get_url_parameter()
--- for UTM extraction. MNTN exposes no native UTM columns, so this is the only source of UTM data.
+-- split_part for base_url, dbt_utils.get_url_host()/get_url_path(), and mntn_extract_url_parameter()
+-- (dispatched to a spark-safe regexp_extract implementation on Databricks) for UTM extraction.
+-- MNTN exposes no native UTM columns, so this is the only source of UTM data.
 -- Ads with no click_url are excluded, matching facebook_ads__url_report's null-filtering pattern.
 -- Requires both creative (~65% of accounts) and creative_info (~61% of accounts) per Fivetran usage
 -- data. Disabled entirely if either is unavailable, since the report has no purpose without a URL
@@ -41,11 +42,11 @@ urls as (
         {{ dbt.split_part('click_url', "'?'", 1) }} as base_url,
         {{ dbt_utils.get_url_host('click_url') }} as url_host,
         '/' || {{ dbt_utils.get_url_path('click_url') }} as url_path,
-        {{ dbt_utils.get_url_parameter('click_url', 'utm_source') }} as utm_source,
-        {{ dbt_utils.get_url_parameter('click_url', 'utm_medium') }} as utm_medium,
-        {{ dbt_utils.get_url_parameter('click_url', 'utm_campaign') }} as utm_campaign,
-        {{ dbt_utils.get_url_parameter('click_url', 'utm_content') }} as utm_content,
-        {{ dbt_utils.get_url_parameter('click_url', 'utm_term') }} as utm_term
+        {{ mntn_extract_url_parameter('click_url', 'utm_source') }} as utm_source,
+        {{ mntn_extract_url_parameter('click_url', 'utm_medium') }} as utm_medium,
+        {{ mntn_extract_url_parameter('click_url', 'utm_campaign') }} as utm_campaign,
+        {{ mntn_extract_url_parameter('click_url', 'utm_content') }} as utm_content,
+        {{ mntn_extract_url_parameter('click_url', 'utm_term') }} as utm_term
     from creative_info
     where click_url is not null
 

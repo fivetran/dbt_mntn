@@ -6,22 +6,16 @@ require-dbt-version: [">=1.3.0", "<3.0.0"]
 
 models:
   mntn:
-    +schema: mntn_reports
+    +schema: mntn
     +materialized: table
     staging:
-      +schema: mntn_staging
-      +materialized: view
+      +schema: mntn_source
+      +materialized: table
       tmp:
-        +schema: mntn_staging
         +materialized: view
 
 vars:
   mntn_sources: []
-
-  # Optional source tables, gated below 70% account adoption per Fivetran usage data
-  # (creative_group 67%, campaign_info 65%, creative 65%, ad_info 65%, analytics_by_state 61%,
-  # creative_info 61%, analytics_by_country 54%). Default true since a majority of accounts still
-  # have each table; set to false if your MNTN connector does not sync the corresponding table.
   mntn__using_creative_group: true
   mntn__using_campaign_info: true
   mntn__using_creative: true
