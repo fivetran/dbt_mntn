@@ -53,6 +53,8 @@
     {"name": "visits", "datatype": dbt.type_int()},
 ] %}
 
+{{ mntn_add_pass_through_columns(base_columns=columns, pass_through_fields=var('mntn__account_passthrough_metrics', none)) }}
+
 {{ return(columns) }}
 
 {% endmacro %}
