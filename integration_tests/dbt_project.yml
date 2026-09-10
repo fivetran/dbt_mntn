@@ -5,7 +5,7 @@ profile: 'integration_tests'
 
 vars:
   mntn:
-    mntn_schema: zz_dbt_avinash_seed
+    mntn_schema: mntn_integration_tests
     mntn_advertiser_identifier: "advertiser"
     mntn_advertiser_info_identifier: "advertiser_info"
     mntn_campaign_group_identifier: "campaign_group"
