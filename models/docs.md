@@ -1,3 +1,7 @@
+{% docs source_relation %}
+The source of the record if the unioning functionality is being used. If not, this field will be empty.
+{% enddocs %}
+
 {% docs date_day %}
 The date for which the performance metrics are reported.
 {% enddocs %}

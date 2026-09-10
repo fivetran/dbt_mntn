@@ -52,7 +52,7 @@ To use this dbt package, you must have the following:
 - At least one Fivetran MNTN connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 - The `advertiser` and `advertiser_info` source tables syncing, since every end model is enriched with account-level context.
-- Note that `creative_group`, `campaign_info`, `creative`, `creative_info`, `ad_info`, `analytics_by_country`, and `analytics_by_state` are optional source tables gated below ~70% account adoption (per Fivetran usage data). If any of these are not syncing for your MNTN connection, the corresponding report(s) will be disabled by default — see [Enable or Disable Optional Reports](#enable-or-disable-optional-reports) below.
+- Note that `creative_group`, `campaign_info`, `creative`, `creative_info`, `ad_info`, `analytics_by_country`, and `analytics_by_state` are optional source tables gated below ~70% account adoption (per Fivetran usage data). If any of these are not syncing for your MNTN connection, the corresponding report(s) are disabled by default — see [Enable or Disable Optional Reports](#enable-or-disable-optional-reports) below.
 
 ## How do I use the dbt package?
 You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:
@@ -72,7 +72,7 @@ packages:
 ```
 
 #### Databricks Dispatch Configuration
-If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
+If you are using a Databricks destination with this package, add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
 ```yml
 dispatch:
   - macro_namespace: dbt_utils
@@ -114,7 +114,7 @@ vars:
 To connect your multiple schema/database sources to the package models, follow the steps outlined in the [Union Data Defined Sources Configuration](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#union_data-source) section of the Fivetran Utils documentation for the `union_connections` macro. This will ensure a proper configuration and correct visualization of connections in the DAG.
 
 #### Enable or Disable Optional Reports
-This package uses several optional source tables that not every MNTN account may sync. If you are running this package via Fivetran Quickstart, transformations of the below tables will be dynamically enabled or disabled. Otherwise, all are **enabled** by default.
+This package uses several optional source tables that not every MNTN account may sync. If you are running this package via Fivetran Quickstart, transformations of the below tables are dynamically enabled or disabled. Otherwise, all are **enabled** by default.
 
 To disable transformations of any of the below tables and their corresponding report(s), add the relevant variable configuration(s) to your root `dbt_project.yml` file:
 
