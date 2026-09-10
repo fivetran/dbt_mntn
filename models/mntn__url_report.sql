@@ -76,6 +76,7 @@ final as (
         sum(ad.spend) as spend,
         sum(ad.conversions) as conversions,
         sum(ad.conversions_value) as conversions_value
+        {{ mntn_persist_pass_through_columns(pass_through_variable='mntn__ad_passthrough_metrics', identifier='ad', transform='sum') }}
     from ad
     left join account
         on ad.date_day = account.date_day
