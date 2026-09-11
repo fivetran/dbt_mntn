@@ -1,0 +1,6 @@
+_fivetran_deleted,_fivetran_synced,day,advertiser_id,time_zone,create_time
+false,2025-06-01T08:00:00,2025-06-01,1001,America/Chicago,2025-05-15T14:00:00
+false,2025-07-15T08:00:00,2025-07-15,1001,America/Chicago,2025-05-15T14:00:00
+false,2025-09-01T08:00:00,2025-09-01,1001,America/Chicago,2025-05-15T14:00:00
+false,2025-11-01T08:00:00,2025-11-01,1001,America/Chicago,2025-05-15T14:00:00
+false,2025-12-15T08:00:00,2025-12-15,1001,America/Chicago,2025-05-15T14:00:00

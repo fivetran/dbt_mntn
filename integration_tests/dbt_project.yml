@@ -1,0 +1,122 @@
+name: 'mntn_integration_tests'
+version: '0.1.0'
+config-version: 2
+profile: 'integration_tests'
+
+vars:
+  mntn:
+    mntn_schema: mntn_integration_tests
+    mntn_advertiser_identifier: "advertiser"
+    mntn_advertiser_info_identifier: "advertiser_info"
+    mntn_campaign_group_identifier: "campaign_group"
+    mntn_campaign_info_identifier: "campaign_info"
+    mntn_creative_group_identifier: "creative_group"
+    mntn_creative_identifier: "creative"
+    mntn_creative_info_identifier: "creative_info"
+    mntn_ad_info_identifier: "ad_info"
+    mntn_analytics_by_country_identifier: "analytics_by_country"
+    mntn_analytics_by_state_identifier: "analytics_by_state"
+    mntn_segment_identifier: "segment"
+    mntn_segment_info_identifier: "segment_info"
+
+models:
+  +persist_docs:
+    relation: true
+    columns: "{{ false if target.type in ('databricks') else true }}"
+  mntn:
+    +schema: "{{ 'mntn_integrations_tests_sqlw' if target.name == 'databricks-sql' else 'mntn' }}"
+
+seeds:
+  +docs:
+    show: False
+  +quote_columns: "{{ target.type in ('redshift', 'postgres', 'duckdb') or var('fivetran_using_source_casing', false) }}"
+  mntn_integration_tests:
+    +column_types:
+      _fivetran_synced: timestamp
+    advertiser:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    advertiser_info:
+      +column_types:
+        day: date
+        create_time: timestamp
+    campaign_group:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    campaign_info:
+      +column_types:
+        day: date
+        start_time: timestamp
+        end_time: timestamp
+        flight_start_time: timestamp
+        flight_end_time: timestamp
+    creative_group:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    creative:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    creative_info:
+      +column_types:
+        day: date
+    ad_info:
+      +column_types:
+        day: date
+        width: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        height: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        create_time: timestamp
+    analytics_by_country:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    analytics_by_state:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    segment:
+      +column_types:
+        day: date
+        impressions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        visits: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        spend: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        conversions: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        order_value: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+    segment_info:
+      +column_types:
+        day: date
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+
+flags:
+  send_anonymous_usage_stats: False
+  use_colors: True

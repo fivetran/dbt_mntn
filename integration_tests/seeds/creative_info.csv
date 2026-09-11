@@ -1,0 +1,10 @@
+_fivetran_deleted,_fivetran_synced,day,creative_id,active,click_url
+false,2025-06-01T08:00:00,2025-06-01,4001,true,//shop.fictional-dental.invalid/bright-by-fdc?utm_source=mntn&utm_medium=ctv&utm_campaign=launch_national&utm_content=hero15
+false,2025-06-01T08:00:00,2025-06-01,4002,true,//shop.fictional-dental.invalid/bright-by-fdc?utm_source=mntn&utm_medium=ctv&utm_campaign=launch_national&utm_content=hero30
+false,2025-06-01T08:00:00,2025-06-01,4003,true,//shop.fictional-dental.invalid/bright-by-fdc?utm_source=mntn&utm_medium=ctv&utm_campaign=launch_national&utm_content=testimonial15
+false,2025-06-01T08:00:00,2025-06-01,4004,true,//shop.fictional-dental.invalid/bright-by-fdc?utm_source=mntn&utm_medium=ctv&utm_campaign=launch_national&utm_content=testimonial30
+false,2025-07-01T08:00:00,2025-07-01,4005,true,//shop.fictional-dental.invalid/products/whitening-kit?utm_source=mntn&utm_medium=ctv&utm_campaign=whitening_kit_awareness&utm_content=evergreen15
+false,2025-07-01T08:00:00,2025-07-01,4006,true,//shop.fictional-dental.invalid/products/whitening-kit?utm_source=mntn&utm_medium=ctv&utm_campaign=whitening_kit_awareness&utm_content=evergreen30
+false,2025-08-01T08:00:00,2025-08-01,4007,true,//shop.fictional-dental.invalid/products/toothbrush-bundle?utm_source=mntn&utm_medium=ctv&utm_campaign=back_to_school&utm_content=bundle15
+false,2025-11-01T08:00:00,2025-11-01,4008,true,//shop.fictional-dental.invalid/holiday/whitening-bundle?utm_source=mntn&utm_medium=ctv&utm_campaign=holiday_bundle&utm_content=hero15
+false,2025-11-01T08:00:00,2025-11-01,4009,true,//shop.fictional-dental.invalid/holiday/gift-sets?utm_source=mntn&utm_medium=ctv&utm_campaign=holiday_bundle&utm_content=gift15

@@ -1,0 +1,73 @@
+database_key: mntn_database
+schema_key: mntn_schema
+
+dbt_versions: ">=1.3.0 <3.0.0"
+
+table_variables:
+  mntn__using_creative_group:
+    - creative_group
+  mntn__using_campaign_info:
+    - campaign_info
+  mntn__using_creative:
+    - creative
+  mntn__using_creative_info:
+    - creative_info
+  mntn__using_ad_info:
+    - ad_info
+  mntn__using_analytics_by_country:
+    - analytics_by_country
+  mntn__using_analytics_by_state:
+    - analytics_by_state
+
+destination_configurations:
+  databricks:
+    dispatch:
+      - macro_namespace: dbt_utils
+        search_order: [ 'spark_utils', 'dbt_utils' ]
+
+public_models: [
+  "mntn__account_report",
+  "mntn__campaign_report",
+  "mntn__ad_group_report",
+  "mntn__ad_report",
+  "mntn__country_report",
+  "mntn__region_report",
+  "mntn__url_report",
+  "mntn__segment_report"
+]
+
+supported_vars:
+  mntn__account_passthrough_metrics:
+    type: dictionary
+    description: "Additional `advertiser` report columns to include in `mntn__account_report`"
+    display_name: "Additional Account Metrics"
+
+  mntn__campaign_passthrough_metrics:
+    type: dictionary
+    description: "Additional `campaign_group` report columns to include in `mntn__campaign_report`"
+    display_name: "Additional Campaign Metrics"
+
+  mntn__ad_group_passthrough_metrics:
+    type: dictionary
+    description: "Additional `creative_group` report columns to include in `mntn__ad_group_report`"
+    display_name: "Additional Ad Group Metrics"
+
+  mntn__ad_passthrough_metrics:
+    type: dictionary
+    description: "Additional `creative` report columns to include in `mntn__ad_report` and `mntn__url_report`"
+    display_name: "Additional Ad Metrics"
+
+  mntn__country_passthrough_metrics:
+    type: dictionary
+    description: "Additional `analytics_by_country` report columns to include in `mntn__country_report`"
+    display_name: "Additional Country Metrics"
+
+  mntn__region_passthrough_metrics:
+    type: dictionary
+    description: "Additional `analytics_by_state` report columns to include in `mntn__region_report`"
+    display_name: "Additional Region Metrics"
+
+  mntn__segment_passthrough_metrics:
+    type: dictionary
+    description: "Additional `segment` report columns to include in `mntn__segment_report`"
+    display_name: "Additional Segment Metrics"
