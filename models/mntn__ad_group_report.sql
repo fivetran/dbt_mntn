@@ -12,25 +12,16 @@ with ad_group as (
 
 ),
 
-account as (
-
-    select *
-    from {{ ref('stg_mntn__advertiser') }}
-
-),
-
 final as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['ad_group.source_relation', 'ad_group.date_day', 'ad_group.ad_group_id']) }} as ad_group_report_id,
         ad_group.source_relation,
         ad_group.date_day,
-        account.account_id,
-        account.account_name,
         ad_group.ad_group_id,
         ad_group.ad_group_name,
         sum(ad_group.impressions) as impressions,
-        sum(ad_group.clicks) as clicks,
+        sum(ad_group.visits) as visits,
         sum(ad_group.spend) as spend,
         sum(ad_group.conversions) as conversions,
         sum(ad_group.conversions_value) as conversions_value
@@ -38,10 +29,7 @@ final as (
         {{ mntn_persist_pass_through_columns(pass_through_variable='mntn__ad_group_passthrough_metrics', identifier='ad_group', transform='sum') }}
 
     from ad_group
-    left join account
-        on ad_group.date_day = account.date_day
-        and ad_group.source_relation = account.source_relation
-    {{ dbt_utils.group_by(n=7) }}
+    {{ dbt_utils.group_by(n=5) }}
 
 )
 

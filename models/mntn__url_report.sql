@@ -18,13 +18,6 @@ with ad as (
 
 ),
 
-account as (
-
-    select *
-    from {{ ref('stg_mntn__advertiser') }}
-
-),
-
 creative_info as (
 
     select *
@@ -58,8 +51,6 @@ final as (
         {{ dbt_utils.generate_surrogate_key(['ad.source_relation', 'ad.date_day', 'ad.ad_id']) }} as url_report_id,
         ad.source_relation,
         ad.date_day,
-        account.account_id,
-        account.account_name,
         ad.ad_id,
         ad.ad_name,
         urls.click_url,
@@ -72,21 +63,18 @@ final as (
         urls.utm_content,
         urls.utm_term,
         sum(ad.impressions) as impressions,
-        sum(ad.clicks) as clicks,
+        sum(ad.visits) as visits,
         sum(ad.spend) as spend,
         sum(ad.conversions) as conversions,
         sum(ad.conversions_value) as conversions_value
         {{ mntn_persist_pass_through_columns(pass_through_variable='mntn__ad_passthrough_metrics', identifier='ad', transform='sum') }}
     from ad
-    left join account
-        on ad.date_day = account.date_day
-        and ad.source_relation = account.source_relation
     left join urls
         on ad.ad_id = urls.ad_id
         and ad.date_day = urls.date_day
         and ad.source_relation = urls.source_relation
     where urls.click_url is not null
-    {{ dbt_utils.group_by(n=16) }}
+    {{ dbt_utils.group_by(n=14) }}
 
 )
 

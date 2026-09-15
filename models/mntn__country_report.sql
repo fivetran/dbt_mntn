@@ -13,27 +13,18 @@ with country as (
 
 ),
 
-account as (
-
-    select *
-    from {{ ref('stg_mntn__advertiser') }}
-
-),
-
 final as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['country.source_relation', 'country.date_day', 'country.country']) }} as country_report_id,
         country.source_relation,
         country.date_day,
-        account.account_id,
-        account.account_name,
         cast(null as {{ dbt.type_string() }}) as campaign_id,
         cast('Account-level' as {{ dbt.type_string() }}) as campaign_name,
         country.country,
         country.country_iso_code,
         sum(country.impressions) as impressions,
-        sum(country.clicks) as clicks,
+        sum(country.visits) as visits,
         sum(country.spend) as spend,
         sum(country.conversions) as conversions,
         sum(country.conversions_value) as conversions_value
@@ -41,10 +32,7 @@ final as (
         {{ mntn_persist_pass_through_columns(pass_through_variable='mntn__country_passthrough_metrics', identifier='country', transform='sum') }}
 
     from country
-    left join account
-        on country.date_day = account.date_day
-        and country.source_relation = account.source_relation
-    {{ dbt_utils.group_by(n=9) }}
+    {{ dbt_utils.group_by(n=7) }}
 
 )
 

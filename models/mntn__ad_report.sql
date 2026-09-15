@@ -17,13 +17,6 @@ with ad as (
 
 ),
 
-account as (
-
-    select *
-    from {{ ref('stg_mntn__advertiser') }}
-
-),
-
 {% if using_creative_info %}
 creative_info as (
 
@@ -48,8 +41,6 @@ final as (
         {{ dbt_utils.generate_surrogate_key(['ad.source_relation', 'ad.date_day', 'ad.ad_id']) }} as ad_report_id,
         ad.source_relation,
         ad.date_day,
-        account.account_id,
-        account.account_name,
         ad.ad_id,
         ad.ad_name,
         ad.creative_size,
@@ -67,7 +58,7 @@ final as (
         ad_info.ad_tag_created_at,
         {% endif %}
         sum(ad.impressions) as impressions,
-        sum(ad.clicks) as clicks,
+        sum(ad.visits) as visits,
         sum(ad.spend) as spend,
         sum(ad.conversions) as conversions,
         sum(ad.conversions_value) as conversions_value
@@ -75,9 +66,6 @@ final as (
         {{ mntn_persist_pass_through_columns(pass_through_variable='mntn__ad_passthrough_metrics', identifier='ad', transform='sum') }}
 
     from ad
-    left join account
-        on ad.date_day = account.date_day
-        and ad.source_relation = account.source_relation
     {% if using_creative_info %}
     left join creative_info
         on ad.ad_id = creative_info.ad_id
@@ -90,7 +78,7 @@ final as (
         and ad.date_day = ad_info.date_day
         and ad.source_relation = ad_info.source_relation
     {% endif %}
-    {% set n = 8 + (2 if using_creative_info else 0) + (7 if using_ad_info else 0) %}
+    {% set n = 6 + (2 if using_creative_info else 0) + (7 if using_ad_info else 0) %}
     {{ dbt_utils.group_by(n=n) }}
 
 )

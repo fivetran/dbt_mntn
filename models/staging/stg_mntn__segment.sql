@@ -28,8 +28,7 @@ final as (
         name as segment_name,
         {{ dbt_utils.generate_surrogate_key(['source_relation', 'day', 'id', 'name']) }} as segment_report_pk,
         impressions,
-        -- MNTN CTV inventory has no native click event; visits (site visits) is the closest engagement metric available and is mapped to clicks for cross-platform consistency.
-        visits as clicks,
+        visits,
         spend,
         conversions,
         order_value as conversions_value

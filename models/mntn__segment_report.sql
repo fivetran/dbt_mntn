@@ -27,7 +27,7 @@ final as (
         segment_info.segment_description,
         segment_info.segment_interest,
         sum(segment.impressions) as impressions,
-        sum(segment.clicks) as clicks,
+        sum(segment.visits) as visits,
         sum(segment.spend) as spend,
         sum(segment.conversions) as conversions,
         sum(segment.conversions_value) as conversions_value

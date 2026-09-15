@@ -32,8 +32,7 @@ final as (
         cast(id as {{ dbt.type_string() }}) as ad_group_id,
         name as ad_group_name,
         impressions,
-        -- MNTN CTV inventory has no native click event; visits (site visits) is the closest engagement metric available and is mapped to clicks for cross-platform consistency.
-        visits as clicks,
+        visits,
         spend,
         conversions,
         order_value as conversions_value

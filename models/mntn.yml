@@ -25,8 +25,8 @@ models:
         description: Time zone configured for the advertiser account.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -35,7 +35,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__campaign_report
-    description: Daily campaign-level performance report, sourced from MNTN's campaign_group table (the platform's preferred campaign-level reporting grain), enriched with account_id/account_name via a join to the advertiser table on date_day (campaign_group carries no advertiser_id of its own — this assumes one advertiser account per MNTN connection). One row per campaign per day. Not enriched with campaign_info metadata (flight dates, status) — the cardinality between campaign_group's campaign_id and campaign_info's campaign_id is unconfirmed against live MNTN data.
+    description: Daily campaign-level performance report, sourced from MNTN's campaign_group table (the platform's preferred campaign-level reporting grain). One row per campaign per day. Not enriched with account_id/account_name (campaign_group carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics) or with campaign_info metadata (flight dates, status) — the cardinality between campaign_group's campaign_id and campaign_info's campaign_id is unconfirmed against live MNTN data.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -48,10 +48,6 @@ models:
         description: "{{ doc('date_day') }}"
         tests:
           - not_null
-      - name: account_id
-        description: "{{ doc('account_id') }}"
-      - name: account_name
-        description: "{{ doc('account_name') }}"
       - name: campaign_id
         description: "{{ doc('campaign_id') }}"
         tests:
@@ -60,8 +56,8 @@ models:
         description: "{{ doc('campaign_name') }}"
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -70,7 +66,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__ad_group_report
-    description: Daily ad-group-level performance report, sourced from MNTN's creative_group table (one TV commercial plus its tracking), enriched with account_id/account_name via a join to the advertiser table on date_day (creative_group carries no advertiser_id of its own — this assumes one advertiser account per MNTN connection). One row per ad group per day.
+    description: Daily ad-group-level performance report, sourced from MNTN's creative_group table (one TV commercial plus its tracking). One row per ad group per day. Not enriched with account_id/account_name — creative_group carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -83,10 +79,6 @@ models:
         description: "{{ doc('date_day') }}"
         tests:
           - not_null
-      - name: account_id
-        description: "{{ doc('account_id') }}"
-      - name: account_name
-        description: "{{ doc('account_name') }}"
       - name: ad_group_id
         description: "{{ doc('ad_group_id') }}"
         tests:
@@ -95,8 +87,8 @@ models:
         description: "{{ doc('ad_group_name') }}"
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -105,7 +97,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__ad_report
-    description: Daily ad-level performance report, sourced from MNTN's creative table (the platform's most granular metrics grain), enriched with account_id/account_name (via a join to the advertiser table on date_day — creative carries no advertiser_id of its own, this assumes one advertiser account per MNTN connection), creative_info (activation status, click-through URL), and ad_info (ad-serving tag attributes). One row per ad per day.
+    description: Daily ad-level performance report, sourced from MNTN's creative table (the platform's most granular metrics grain), enriched with creative_info (activation status, click-through URL) and ad_info (ad-serving tag attributes). One row per ad per day. Not enriched with account_id/account_name — creative carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -118,10 +110,6 @@ models:
         description: "{{ doc('date_day') }}"
         tests:
           - not_null
-      - name: account_id
-        description: "{{ doc('account_id') }}"
-      - name: account_name
-        description: "{{ doc('account_name') }}"
       - name: ad_id
         description: "{{ doc('ad_id') }}"
         tests:
@@ -150,8 +138,8 @@ models:
         description: Timestamp when the ad-serving tag was created.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -160,7 +148,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__country_report
-    description: Daily performance report broken out by country, enriched with account_id/account_name via a join to the advertiser table on date_day (this grain carries no advertiser_id of its own — assumes one advertiser account per MNTN connection). MNTN's legacy API returns one table/dimension per request, so this grain also carries no campaign_id — campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__country_report. One row per country per day.
+    description: Daily performance report broken out by country. MNTN's legacy API returns one table/dimension per request, so this grain carries no campaign_id — campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__country_report. Not enriched with account_id/account_name — this grain carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics. One row per country per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -173,10 +161,6 @@ models:
         description: "{{ doc('date_day') }}"
         tests:
           - not_null
-      - name: account_id
-        description: "{{ doc('account_id') }}"
-      - name: account_name
-        description: "{{ doc('account_name') }}"
       - name: campaign_id
         description: Always null — MNTN's country breakdown has no campaign-level grain.
       - name: campaign_name
@@ -187,8 +171,8 @@ models:
         description: ISO country code.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -197,7 +181,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__region_report
-    description: Daily performance report broken out by state/province, sourced from analytics_by_state (chosen over the DMA grain, which has no analog on other ad platforms), enriched with account_id/account_name via a join to the advertiser table on date_day (this grain carries no advertiser_id of its own — assumes one advertiser account per MNTN connection). MNTN's legacy API returns one table/dimension per request, so this grain also carries no campaign_id — campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__region_report. One row per state/province per day.
+    description: Daily performance report broken out by state/province, sourced from analytics_by_state (chosen over the DMA grain, which has no analog on other ad platforms). MNTN's legacy API returns one table/dimension per request, so this grain carries no campaign_id — campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__region_report. Not enriched with account_id/account_name — this grain carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics. One row per state/province per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -210,10 +194,6 @@ models:
         description: "{{ doc('date_day') }}"
         tests:
           - not_null
-      - name: account_id
-        description: "{{ doc('account_id') }}"
-      - name: account_name
-        description: "{{ doc('account_name') }}"
       - name: campaign_id
         description: Always null — MNTN's region breakdown has no campaign-level grain.
       - name: campaign_name
@@ -228,8 +208,8 @@ models:
         description: Globally unique code identifying the state or province.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -238,7 +218,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__url_report
-    description: Daily performance report broken out by destination URL, parsed from creative_info.click_url using the same generic URL-parsing pattern other ad_reporting platforms apply to their own raw URL fields, enriched with account_id/account_name via a join to the advertiser table on date_day (creative carries no advertiser_id of its own — assumes one advertiser account per MNTN connection). Ads with no click_url are excluded. One row per URL per ad per day.
+    description: Daily performance report broken out by destination URL, parsed from creative_info.click_url using the same generic URL-parsing pattern other ad_reporting platforms apply to their own raw URL fields. Ads with no click_url are excluded. Not enriched with account_id/account_name — creative carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics. One row per URL per ad per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -251,10 +231,6 @@ models:
         description: "{{ doc('date_day') }}"
         tests:
           - not_null
-      - name: account_id
-        description: "{{ doc('account_id') }}"
-      - name: account_name
-        description: "{{ doc('account_name') }}"
       - name: ad_id
         description: "{{ doc('ad_id') }}"
         tests:
@@ -281,8 +257,8 @@ models:
         description: Value of the utm_term query parameter on the destination URL, if present.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -316,8 +292,8 @@ models:
         description: Interest category associated with the audience segment.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions

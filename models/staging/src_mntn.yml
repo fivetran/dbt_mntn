@@ -35,7 +35,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate
@@ -161,7 +161,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate
@@ -259,7 +259,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate
@@ -338,7 +338,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate
@@ -457,7 +457,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate
@@ -538,7 +538,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate
@@ -605,7 +605,7 @@ sources:
           - name: tv_spend
             description: Spend specific to linear TV commercial airings, as distinct from streaming/CTV inventory.
           - name: visits
-            description: "{{ doc('clicks') }}"
+            description: "{{ doc('visits') }}"
           - name: visit_rate
             description: Visits divided by total impressions.
           - name: impression_visit_rate

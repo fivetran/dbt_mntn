@@ -42,8 +42,8 @@ Name of the ad.
 Total number of times the ad was served.
 {% enddocs %}
 
-{% docs clicks %}
-Total number of engagement events mapped to MNTN's visits metric. MNTN's CTV/OTT inventory has no native click event, so this represents site visits attributed to the ad, not literal ad clicks — treat cross-platform CTR comparisons involving this field with caution.
+{% docs visits %}
+Total number of site visits attributed to the ad. MNTN's CTV/OTT inventory has no native click event, so this represents site visits rather than literal ad clicks.
 {% enddocs %}
 
 {% docs spend %}

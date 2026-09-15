@@ -18,8 +18,8 @@ models:
         description: "{{ doc('account_name') }}"
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -62,8 +62,8 @@ models:
         description: "{{ doc('campaign_name') }}"
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -114,8 +114,8 @@ models:
         description: "{{ doc('ad_group_name') }}"
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -142,8 +142,8 @@ models:
         description: Dimensions or format of the creative (e.g. TV commercial length/aspect ratio).
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -217,8 +217,8 @@ models:
         description: ISO country code.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -250,8 +250,8 @@ models:
         description: Globally unique code identifying the state or province.
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions
@@ -283,8 +283,8 @@ models:
           - not_null
       - name: impressions
         description: "{{ doc('impressions') }}"
-      - name: clicks
-        description: "{{ doc('clicks') }}"
+      - name: visits
+        description: "{{ doc('visits') }}"
       - name: spend
         description: "{{ doc('spend') }}"
       - name: conversions

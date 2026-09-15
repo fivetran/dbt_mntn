@@ -33,12 +33,13 @@ By default, this package materializes the following final tables:
 
 | Table | Description |
 | :---- | :---- |
-| `mntn__account_report` | Daily account-level performance, including `impressions`, `clicks`, `spend`, and `conversions`.<br><br>**Example Analytics Questions:**<ul><li>How does performance compare across different MNTN accounts?</li><li>Is spend trending up or down over time at the account level?</li></ul> |
+| `mntn__account_report` | Daily account-level performance, including `impressions`, `visits`, `spend`, and `conversions`.<br>bar>
+<br>**Example Analytics Questions:**<ul><li>How does performance compare across different MNTN accounts?</li><li>Is spend trending up or down over time at the account level?</li></ul> |
 | `mntn__campaign_report` | Daily campaign-level performance, sourced from MNTN's `campaign_group` table (the platform's preferred campaign-level reporting grain).<br><br>**Example Analytics Questions:**<ul><li>Which campaigns are most efficient in terms of cost per conversion?</li><li>Which campaigns contribute most to overall spend or conversions?</li></ul> |
 | `mntn__ad_group_report` | Daily ad-group-level performance, sourced from MNTN's `creative_group` table (one TV commercial plus its tracking).<br><br>**Example Analytics Questions:**<ul><li>Which ad groups have the strongest engagement relative to spend?</li><li>Do certain ad groups dominate impressions within a campaign?</li></ul> |
 | `mntn__ad_report` | Daily ad-level performance, sourced from MNTN's `creative` table (the platform's most granular metrics grain), enriched with ad activation status and ad-serving tag attributes.<br><br>**Example Analytics Questions:**<ul><li>Which ad creatives are driving the lowest cost per conversion?</li><li>How do performance trends change after refreshing creative?</li></ul> |
-| `mntn__country_report` | Daily performance broken out by country.<br><br>**Example Analytics Questions:**<ul><li>Which countries are delivering the highest return on ad spend for each account?</li><li>Are there seasonal performance variations by geographic region?</li></ul> |
-| `mntn__region_report` | Daily performance broken out by state/province.<br><br>**Example Analytics Questions:**<ul><li>Which states are driving the most efficient account performance?</li><li>How do regional performance trends correlate with local market conditions?</li></ul> |
+| `mntn__country_report` | Daily performance broken out by country.<br><br>**Example Analytics Questions:**<ul><li>Which countries are delivering the highest return on ad spend?</li><li>Are there seasonal performance variations by geographic region?</li></ul> |
+| `mntn__region_report` | Daily performance broken out by state/province.<br><br>**Example Analytics Questions:**<ul><li>Which states are driving the most efficient performance?</li><li>How do regional performance trends correlate with local market conditions?</li></ul> |
 | `mntn__url_report` | Daily performance broken out by destination URL, parsed from `creative_info.click_url`. By default, excludes ads with NULL `click_url` values.<br><br>**Example Analytics Questions:**<ul><li>Which landing pages are driving the highest conversion rates?</li><li>Which UTM campaigns are driving the most traffic across different creatives?</li></ul> |
 | `mntn__segment_report` | Daily audience/targeting-segment performance, MNTN's audience concept with no equivalent report type in other ad_reporting platforms.<br><br>**Example Analytics Questions:**<ul><li>Which audience segments are driving the most site visits?</li><li>How does new vs. existing audience reach vary by segment?</li></ul> |
 
@@ -51,7 +52,7 @@ To use this dbt package, you must have the following:
 
 - At least one Fivetran MNTN connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
-- The `advertiser` and `advertiser_info` source tables syncing, since every end model is enriched with account-level context.
+- The `advertiser` and `advertiser_info` source tables syncing, which power `mntn__account_report`. Note that account-level context (`account_id`/`account_name`) is not enriched into the other end models, since MNTN's other source tables carry no advertiser identifier of their own and a single MNTN connection can span multiple advertiser accounts.
 - Note that `creative_group`, `campaign_info`, `creative`, `creative_info`, `ad_info`, `analytics_by_country`, and `analytics_by_state` are optional source tables gated below ~70% account adoption (per Fivetran usage data). If any of these are not syncing for your MNTN connection, the corresponding report(s) are disabled by default — see [Enable or Disable Optional Reports](#enable-or-disable-optional-reports) below.
 
 ## How do I use the dbt package?

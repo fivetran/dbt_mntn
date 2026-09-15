@@ -24,7 +24,7 @@ final as (
         account.account_name,
         account_info.account_time_zone,
         sum(account.impressions) as impressions,
-        sum(account.clicks) as clicks,
+        sum(account.visits) as visits,
         sum(account.spend) as spend,
         sum(account.conversions) as conversions,
         sum(account.conversions_value) as conversions_value

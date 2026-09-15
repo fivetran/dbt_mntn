@@ -14,21 +14,12 @@ with region as (
 
 ),
 
-account as (
-
-    select *
-    from {{ ref('stg_mntn__advertiser') }}
-
-),
-
 final as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['region.source_relation', 'region.date_day', 'region.region']) }} as region_report_id,
         region.source_relation,
         region.date_day,
-        account.account_id,
-        account.account_name,
         cast(null as {{ dbt.type_string() }}) as campaign_id,
         cast('Account-level' as {{ dbt.type_string() }}) as campaign_name,
         region.region,
@@ -36,7 +27,7 @@ final as (
         region.region_country_code,
         region.region_unique_code,
         sum(region.impressions) as impressions,
-        sum(region.clicks) as clicks,
+        sum(region.visits) as visits,
         sum(region.spend) as spend,
         sum(region.conversions) as conversions,
         sum(region.conversions_value) as conversions_value
@@ -44,10 +35,7 @@ final as (
         {{ mntn_persist_pass_through_columns(pass_through_variable='mntn__region_passthrough_metrics', identifier='region', transform='sum') }}
 
     from region
-    left join account
-        on region.date_day = account.date_day
-        and region.source_relation = account.source_relation
-    {{ dbt_utils.group_by(n=11) }}
+    {{ dbt_utils.group_by(n=9) }}
 
 )
 
