@@ -33,8 +33,7 @@ By default, this package materializes the following final tables:
 
 | Table | Description |
 | :---- | :---- |
-| `mntn__account_report` | Daily account-level performance, including `impressions`, `visits`, `spend`, and `conversions`.<br>bar>
-<br>**Example Analytics Questions:**<ul><li>How does performance compare across different MNTN accounts?</li><li>Is spend trending up or down over time at the account level?</li></ul> |
+| `mntn__account_report` | Daily account-level performance, including `impressions`, `visits`, `spend`, and `conversions`.<br><br>**Example Analytics Questions:**<ul><li>How does performance compare across different MNTN accounts?</li><li>Is spend trending up or down over time at the account level?</li></ul> |
 | `mntn__campaign_report` | Daily campaign-level performance, sourced from MNTN's `campaign_group` table (the platform's preferred campaign-level reporting grain).<br><br>**Example Analytics Questions:**<ul><li>Which campaigns are most efficient in terms of cost per conversion?</li><li>Which campaigns contribute most to overall spend or conversions?</li></ul> |
 | `mntn__ad_group_report` | Daily ad-group-level performance, sourced from MNTN's `creative_group` table (one TV commercial plus its tracking).<br><br>**Example Analytics Questions:**<ul><li>Which ad groups have the strongest engagement relative to spend?</li><li>Do certain ad groups dominate impressions within a campaign?</li></ul> |
 | `mntn__ad_report` | Daily ad-level performance, sourced from MNTN's `creative` table (the platform's most granular metrics grain), enriched with ad activation status and ad-serving tag attributes.<br><br>**Example Analytics Questions:**<ul><li>Which ad creatives are driving the lowest cost per conversion?</li><li>How do performance trends change after refreshing creative?</li></ul> |
