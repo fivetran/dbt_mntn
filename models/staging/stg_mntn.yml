@@ -40,6 +40,8 @@ models:
         description: "{{ doc('account_id') }}"
         tests:
           - not_null
+      - name: account_name
+        description: "{{ doc('account_name') }}"
       - name: account_time_zone
         description: Time zone configured for the advertiser account.
       - name: account_created_at
@@ -164,6 +166,8 @@ models:
         description: "{{ doc('ad_id') }}"
         tests:
           - not_null
+      - name: ad_name
+        description: "{{ doc('ad_name') }}"
       - name: is_creative_active
         description: Whether the creative is currently active.
       - name: click_url
@@ -182,6 +186,8 @@ models:
         description: "{{ doc('ad_id') }}"
         tests:
           - not_null
+      - name: ad_name
+        description: "{{ doc('ad_name') }}"
       - name: ad_code
         description: The ad-serving tag code associated with the creative.
       - name: is_ad_tag_active
@@ -305,6 +311,8 @@ models:
         description: Unique identifier for the audience segment.
         tests:
           - not_null
+      - name: segment_name
+        description: Name of the audience segment.
       - name: segment_description
         description: Description of the audience segment.
       - name: segment_interest

@@ -135,6 +135,8 @@ By default, this package selects `impressions`, `clicks`, `spend`, `conversions`
 
 > **Note**: Please ensure you exercise due diligence when adding metrics to these models. The metrics added by default have been vetted by the Fivetran team maintaining this package for accuracy. You will want to ensure whichever metrics you pass through are appropriate to aggregate at the respective reporting levels provided in this package.
 
+> **Note**: Passthrough metrics are only available at the source-table grain (account, campaign, ad group, ad, country, region, segment). Only pass through additive measures (e.g. counts, spend) — metrics that are already aggregations at a finer grain, such as rates or ratios, should not be summed when rolled up into a coarser report grain.
+
 ```yml
 vars:
     mntn__account_passthrough_metrics: # add metrics found in ADVERTISER
@@ -153,10 +155,9 @@ vars:
       - name: "another_one"
     mntn__segment_passthrough_metrics: # add metrics found in SEGMENT
       - name: "site_visitor"
-        transform_sql: "site_visitor"
         alias: "site_visitors"
 ```
-> **Note**: A small number of `segment` source columns added by MNTN in June 2026 (`site_visitor`, `existing_site_visitor`, `new_site_visitor`, `existing_user_reached`, `new_user_reached`) are singular, breaking from the plural convention (`*_visitors`, `*_reached`) used everywhere else in this package. To opt into these specific columns, you must provide both `transform_sql` and `alias` as shown above — `alias` alone is read as the literal source column name, not a rename.
+> **Note**: A small number of `segment` source columns added by MNTN in June 2026 (`site_visitor`, `existing_site_visitor`, `new_site_visitor`, `existing_user_reached`, `new_user_reached`) are singular, breaking from the plural convention (`*_visitors`, `*_reached`) used everywhere else in this package. To opt into these specific columns while keeping the plural naming convention, provide an `alias` as shown above.
 
 #### Change the source table references
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable. This is not available when running the package on multiple unioned connections.

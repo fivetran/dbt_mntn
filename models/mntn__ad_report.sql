@@ -42,7 +42,11 @@ final as (
         ad.source_relation,
         ad.date_day,
         ad.ad_id,
-        ad.ad_name,
+        coalesce(
+            ad.ad_name
+            {% if using_creative_info %}, creative_info.ad_name{% endif %}
+            {% if using_ad_info %}, ad_info.ad_name{% endif %}
+        ) as ad_name,
         ad.creative_size,
         {% if using_creative_info %}
         creative_info.is_creative_active,

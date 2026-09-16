@@ -21,7 +21,7 @@ final as (
         account.source_relation,
         account.date_day,
         account.account_id,
-        account.account_name,
+        coalesce(account.account_name, account_info.account_name) as account_name,
         account_info.account_time_zone,
         sum(account.impressions) as impressions,
         sum(account.visits) as visits,

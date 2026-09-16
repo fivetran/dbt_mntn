@@ -23,7 +23,7 @@ final as (
         segment.source_relation,
         segment.date_day,
         segment.segment_id,
-        segment.segment_name,
+        coalesce(segment.segment_name, segment_info.segment_name) as segment_name,
         segment_info.segment_description,
         segment_info.segment_interest,
         sum(segment.impressions) as impressions,

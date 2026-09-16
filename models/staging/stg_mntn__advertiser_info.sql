@@ -25,6 +25,7 @@ final as (
         source_relation,
         day as date_day,
         cast(advertiser_id as {{ dbt.type_string() }}) as account_id,
+        name as account_name,
         time_zone as account_time_zone,
         cast(create_time as {{ dbt.type_timestamp() }}) as account_created_at
     from fields

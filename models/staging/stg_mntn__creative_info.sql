@@ -29,6 +29,7 @@ final as (
         source_relation,
         day as date_day,
         cast(creative_id as {{ dbt.type_string() }}) as ad_id,
+        name as ad_name,
         active as is_creative_active,
         click_url
     from fields

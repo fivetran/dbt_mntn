@@ -29,6 +29,13 @@ test_scenarios:
       mntn__using_analytics_by_state: false
     include_incremental: false
 
+  - name: "segment passthrough metrics"
+    vars:
+      mntn__segment_passthrough_metrics:
+        - name: "site_visitor"
+          alias: "site_visitors"
+    include_incremental: false
+
   - name: "MDLS"
     vars:
       fivetran_using_source_casing: true

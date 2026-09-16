@@ -25,6 +25,7 @@ final as (
         source_relation,
         day as date_day,
         cast(segment_id as {{ dbt.type_string() }}) as segment_id,
+        name as segment_name,
         description as segment_description,
         interest as segment_interest
     from fields

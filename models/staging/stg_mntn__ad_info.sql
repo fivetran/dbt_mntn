@@ -29,6 +29,7 @@ final as (
         source_relation,
         day as date_day,
         cast(creative_id as {{ dbt.type_string() }}) as ad_id,
+        name as ad_name,
         ad_code,
         -- renamed from the source's "active" to disambiguate from stg_mntn__creative_info.is_creative_active, a different metadata facet at the same (day, creative_id) grain.
         active as is_ad_tag_active,

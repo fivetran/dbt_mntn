@@ -32,7 +32,6 @@ final as (
         spend,
         conversions,
         order_value as conversions_value
-        -- Five columns added June 2026 (site_visitor, existing_site_visitor, new_site_visitor, existing_user_reached, new_user_reached) are singular in the MNTN source, unlike the plural convention (*_visitors, *_reached) used everywhere else in this package. Opt into them via mntn__segment_passthrough_metrics using {name: 'site_visitor', transform_sql: 'site_visitor', alias: 'site_visitors'} (transform_sql plus alias is required to rename on the way in — alias alone is read as the literal source column name by fivetran_utils.fill_pass_through_columns).
         {{ fivetran_utils.fill_pass_through_columns('mntn__segment_passthrough_metrics') }}
     from fields
     where not coalesce(_fivetran_deleted, false)

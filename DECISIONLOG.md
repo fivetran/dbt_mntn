@@ -15,11 +15,5 @@ MNTN's legacy API also exposes a DMA (media market) breakdown, but `mntn__region
 ## `mntn__segment_report` is a standalone report
 MNTN's audience/targeting-segment concept has no equivalent report type in any other ad_reporting platform (the closest precedent is `pinterest_ads__pin_promotion_report`). It is deliberately kept standalone and is not unioned into any shared cross-platform schema/report layer.
 
-## Singular vs. plural passthrough metric naming in `segment`
-Five `segment` source columns added by MNTN in June 2026 (`site_visitor`, `existing_site_visitor`, `new_site_visitor`, `existing_user_reached`, `new_user_reached`) are singular, breaking from the plural convention (`*_visitors`, `*_reached`) used everywhere else in this package. To opt into them via `mntn__segment_passthrough_metrics`, pass `{name: 'site_visitor', transform_sql: 'site_visitor', alias: 'site_visitors'}` — both `transform_sql` and `alias` are required, since `alias` alone is read by `fivetran_utils.fill_pass_through_columns` as the literal source column name, not a rename.
-
-## URL parameter extraction on Databricks
-`mntn__url_report` extracts UTM parameters from `creative_info.click_url` via a custom `mntn_extract_url_parameter()` macro (dispatched per-adapter) rather than calling `dbt_utils.get_url_parameter()` directly, because that macro's default implementation does not reliably split URL query parameters on Spark/Databricks. The `spark__` implementation uses `regexp_extract()` instead, matching the workaround used by `facebook_ads`, `google_ads`, and `linkedin`.
-
-## Passing through metrics not natively supported
-Additional passthrough metrics are only available at the source-table grain (account, campaign, ad group, ad, country, region, segment) via the `mntn__*_passthrough_metrics` variables. Metrics that are already aggregations at a finer grain (e.g. rates or ratios) should not be summed when rolled up into a coarser report grain — passthrough metrics are only appropriate for additive measures.
+## MNTN's API may omit records with empty fields rather than returning nulls
+For some MNTN report endpoints, if a requested field is empty for a given record, the API may omit the entire record from the response instead of returning it with a null value for that field. This can result in missing rows with no error or warning, which may look like a data issue (e.g. a gap in `date_day` coverage) during validation. This is upstream API behavior that the package cannot detect or correct for.

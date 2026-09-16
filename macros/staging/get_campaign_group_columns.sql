@@ -41,7 +41,7 @@
     {"name": "visits", "datatype": dbt.type_int()},
 ] %}
 
-{{ mntn_add_pass_through_columns(base_columns=columns, pass_through_fields=var('mntn__campaign_passthrough_metrics', none)) }}
+{{ fivetran_utils.add_pass_through_columns(base_columns=columns, pass_through_var=var('mntn__campaign_passthrough_metrics', none)) }}
 
 {{ return(columns) }}
 

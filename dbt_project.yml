@@ -16,13 +16,6 @@ models:
 
 vars:
   mntn_sources: []
-  mntn__using_creative_group: true
-  mntn__using_campaign_info: true
-  mntn__using_creative: true
-  mntn__using_creative_info: true
-  mntn__using_ad_info: true
-  mntn__using_analytics_by_country: true
-  mntn__using_analytics_by_state: true
 
   mntn__account_passthrough_metrics: []
   mntn__campaign_passthrough_metrics: []
