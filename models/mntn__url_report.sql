@@ -1,13 +1,8 @@
--- One row per destination URL per ad per day
--- Sourced from creative_info.click_url, MNTN's only URL field. Parsed with the same generic
--- URL-parsing pattern other ad_reporting platforms use on their own single raw URL field:
--- split_part for base_url, dbt_utils.get_url_host()/get_url_path(), and mntn_extract_url_parameter()
--- (dispatched to a spark-safe regexp_extract implementation on Databricks) for UTM extraction.
--- MNTN exposes no native UTM columns, so this is the only source of UTM data.
--- Ads with no click_url are excluded, matching facebook_ads__url_report's null-filtering pattern.
--- Requires both creative (~65% of accounts) and creative_info (~61% of accounts) per Fivetran usage
--- data. Disabled entirely if either is unavailable, since the report has no purpose without a URL
--- to report on.
+-- Parsed with split_part for base_url, dbt_utils.get_url_host()/get_url_path(), and
+-- mntn_extract_url_parameter() (dispatched to a spark-safe regexp_extract implementation on
+-- Databricks) for UTM extraction. MNTN exposes no native UTM columns, so this is the only source.
+-- Requires both creative and creative_info. Disabled entirely if either is unavailable, since the
+-- report has no purpose without a URL to report on.
 
 {{ config(enabled=var('mntn__using_creative', True) and var('mntn__using_creative_info', True)) }}
 

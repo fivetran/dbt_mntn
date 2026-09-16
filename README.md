@@ -52,7 +52,7 @@ To use this dbt package, you must have the following:
 - At least one Fivetran MNTN connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 - The `advertiser` and `advertiser_info` source tables syncing, which power `mntn__account_report`. Note that account-level context (`account_id`/`account_name`) is not enriched into the other end models, since MNTN's other source tables carry no advertiser identifier of their own and a single MNTN connection can span multiple advertiser accounts.
-- Note that `creative_group`, `campaign_info`, `creative`, `creative_info`, `ad_info`, `analytics_by_country`, and `analytics_by_state` are optional source tables gated below ~70% account adoption (per Fivetran usage data). If any of these are not syncing for your MNTN connection, the corresponding report(s) are disabled by default — see [Enable or Disable Optional Reports](#enable-or-disable-optional-reports) below.
+- Note that `creative_group`, `campaign_info`, `creative`, `creative_info`, `ad_info`, `analytics_by_country`, and `analytics_by_state` are optional source tables. If any of these are not syncing for your MNTN connection, the corresponding report(s) are disabled by default — see [Enable or Disable Optional Reports](#enable-or-disable-optional-reports) below.
 
 ## How do I use the dbt package?
 You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:
@@ -130,11 +130,9 @@ vars:
 ```
 
 #### Passing Through Additional Metrics
-By default, this package selects `impressions`, `clicks`, `spend`, `conversions`, and `conversions_value` (where available) from the source reporting tables to store into the output models. If you would like to pass through additional metrics, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
+By default, this package selects `impressions`, `visits`, `spend`, `conversions`, and `conversions_value` (where available) from the source reporting tables to store into the output models. If you would like to pass through additional metrics, add the below configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and transformed (`transform_sql`) if desired, but not required. Only the `name` of each metric field is required. Use the below format for declaring the respective pass-through variables:
 
-> **Note**: Please ensure you exercise due diligence when adding metrics to these models. The metrics added by default have been vetted by the Fivetran team maintaining this package for accuracy. You will want to ensure whichever metrics you pass through are appropriate to aggregate at the respective reporting levels provided in this package.
-
-> **Note**: Passthrough metrics are only available at the source-table grain (account, campaign, ad group, ad, country, region, segment). Only pass through additive measures (e.g. counts, spend) — metrics that are already aggregations at a finer grain, such as rates or ratios, should not be summed when rolled up into a coarser report grain.
+> **Note**:  Please ensure you exercise due diligence when adding metrics to these models Passthrough metrics are only available at the source-table grain (account, campaign, ad group, ad, country, region, segment). Only pass through additive measures (e.g. counts, spend) — metrics that are already aggregations at a finer grain, such as rates or ratios, should not be summed when rolled up into a coarser report grain.
 
 ```yml
 vars:

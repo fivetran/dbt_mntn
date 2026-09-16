@@ -1,7 +1,4 @@
--- One row per ad group per day
--- Sourced from MNTN's creative_group table: one TV commercial plus its tracking (and Multi-Touch group, if used).
--- creative_group is synced by only ~67% of accounts (per Fivetran usage data) — disabled via
--- mntn__using_creative_group when a connection doesn't have it.
+-- To disable this model, set the mntn__using_creative_group variable to false in your dbt_project.yml file.
 
 {{ config(enabled=var('mntn__using_creative_group', True)) }}
 

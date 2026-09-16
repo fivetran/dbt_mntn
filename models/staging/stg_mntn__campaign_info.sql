@@ -28,7 +28,6 @@ final as (
     select
         source_relation,
         day as date_day,
-        -- campaign_id here is MNTN's finer campaign_id grain, a distinct id space from campaign_group's id (mapped to campaign_id in stg_mntn__campaign_group). The cardinality between the two is unconfirmed, so this model is not joined into mntn__campaign_report yet.
         cast(campaign_id as {{ dbt.type_string() }}) as campaign_id,
         name as campaign_name,
         status as campaign_status,

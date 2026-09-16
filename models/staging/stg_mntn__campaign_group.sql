@@ -24,7 +24,6 @@ final as (
     select
         source_relation,
         day as date_day,
-        -- campaign_group is MNTN's documented preferred grain for campaign-level reporting, so its id is mapped to the canonical campaign_id.
         cast(id as {{ dbt.type_string() }}) as campaign_id,
         name as campaign_name,
         impressions,

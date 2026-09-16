@@ -15,8 +15,6 @@ models:
         +materialized: view
 
 vars:
-  mntn_sources: []
-
   mntn__account_passthrough_metrics: []
   mntn__campaign_passthrough_metrics: []
   mntn__ad_group_passthrough_metrics: []

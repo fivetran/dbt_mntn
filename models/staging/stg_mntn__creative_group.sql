@@ -28,7 +28,6 @@ final as (
     select
         source_relation,
         day as date_day,
-        -- creative_group is MNTN's ad-group-equivalent (one TV commercial plus its tracking), mapped to the canonical ad_group_id.
         cast(id as {{ dbt.type_string() }}) as ad_group_id,
         name as ad_group_name,
         impressions,

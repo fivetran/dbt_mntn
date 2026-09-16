@@ -1,7 +1,3 @@
--- One row per campaign per day
--- Sourced from MNTN's campaign_group table, the platform's preferred campaign-level reporting grain.
--- Not joined to stg_mntn__campaign_info: the cardinality between campaign_group's campaign_id and campaign_info's campaign_id is unconfirmed (see the package README).
-
 with campaign as (
 
     select *

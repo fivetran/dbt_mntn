@@ -1,8 +1,4 @@
--- One row per country per day
--- MNTN's legacy API returns one table/dimension per request, so country breakdowns carry no campaign_id.
--- campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__country_report's field_mapping.
--- analytics_by_country is synced by only ~54% of accounts (per Fivetran usage data) — disabled via
--- mntn__using_analytics_by_country when a connection doesn't have it.
+-- To disable this model, set the mntn__using_analytics_by_country variable to false in your dbt_project.yml file.
 
 {{ config(enabled=var('mntn__using_analytics_by_country', True)) }}
 

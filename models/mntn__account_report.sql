@@ -1,5 +1,3 @@
--- One row per account per day
-
 with account as (
 
     select *

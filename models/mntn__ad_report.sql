@@ -1,9 +1,5 @@
--- One row per ad per day
--- Sourced from MNTN's creative table (the platform's most granular metrics grain), enriched with
--- creative_info (creative activation status, click-through URL) and ad_info (ad-serving tag attributes).
--- creative_info (~61% of accounts) and ad_info (~65% of accounts) are each independently optional
--- enrichment per Fivetran usage data — the report still builds on creative alone (~65% of accounts,
--- the hard requirement below) if either or both are unavailable for a connection.
+-- creative_info and ad_info are each independently optional enrichment — the report still builds on
+-- creative alone (the hard requirement below) if either or both are unavailable for a connection.
 
 {{ config(enabled=var('mntn__using_creative', True)) }}
 

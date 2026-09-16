@@ -1,9 +1,4 @@
--- One row per state/province per day
--- MNTN's legacy API returns one table/dimension per request, so region breakdowns carry no campaign_id.
--- campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__region_report's field_mapping.
--- Sourced from analytics_by_state (chosen over the DMA grain, which has no analog on other platforms).
--- analytics_by_state is synced by only ~61% of accounts (per Fivetran usage data) — disabled via
--- mntn__using_analytics_by_state when a connection doesn't have it.
+-- To disable this model, set the mntn__using_analytics_by_state variable to false in your dbt_project.yml file.
 
 {{ config(enabled=var('mntn__using_analytics_by_state', True)) }}
 

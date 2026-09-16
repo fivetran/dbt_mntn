@@ -1,7 +1,3 @@
--- One row per audience segment per day
--- MNTN's audience/targeting concept, with no equivalent report type in any other ad_reporting platform
--- (precedent: pinterest_ads__pin_promotion_report). Standalone report, not unioned into any shared-schema layer.
-
 with segment as (
 
     select *

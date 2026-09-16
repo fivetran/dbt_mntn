@@ -35,7 +35,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__campaign_report
-    description: Daily campaign-level performance report, sourced from MNTN's campaign_group table (the platform's preferred campaign-level reporting grain). One row per campaign per day. Not enriched with account_id/account_name (campaign_group carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics) or with campaign_info metadata (flight dates, status) — the cardinality between campaign_group's campaign_id and campaign_info's campaign_id is unconfirmed against live MNTN data.
+    description: Daily campaign-level performance report, sourced from MNTN's campaign_group table (the platform's preferred campaign-level reporting grain). One row per campaign per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -66,7 +66,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__ad_group_report
-    description: Daily ad-group-level performance report, sourced from MNTN's creative_group table (one TV commercial plus its tracking). One row per ad group per day. Not enriched with account_id/account_name — creative_group carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics.
+    description: Daily ad-group-level performance report, sourced from MNTN's creative_group table (one TV commercial plus its tracking). One row per ad group per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -97,7 +97,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__ad_report
-    description: Daily ad-level performance report, sourced from MNTN's creative table (the platform's most granular metrics grain), enriched with creative_info (activation status, click-through URL) and ad_info (ad-serving tag attributes). One row per ad per day. Not enriched with account_id/account_name — creative carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics.
+    description: Daily ad-level performance report, sourced from MNTN's creative table (the platform's most granular metrics grain), enriched with creative_info (activation status, click-through URL) and ad_info (ad-serving tag attributes). One row per ad per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -148,7 +148,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__country_report
-    description: Daily performance report broken out by country. MNTN's legacy API returns one table/dimension per request, so this grain carries no campaign_id — campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__country_report. Not enriched with account_id/account_name — this grain carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics. One row per country per day.
+    description: Daily performance report broken out by country. One row per country per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -181,7 +181,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__region_report
-    description: Daily performance report broken out by state/province, sourced from analytics_by_state (chosen over the DMA grain, which has no analog on other ad platforms). MNTN's legacy API returns one table/dimension per request, so this grain carries no campaign_id — campaign_id/campaign_name are hardcoded to null/'Account-level', mirroring facebook_ads__region_report. Not enriched with account_id/account_name — this grain carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics. One row per state/province per day.
+    description: Daily performance report broken out by state/province, sourced from MNTN's analytics_by_state table. One row per state/province per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -218,7 +218,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__url_report
-    description: Daily performance report broken out by destination URL, parsed from creative_info.click_url using the same generic URL-parsing pattern other ad_reporting platforms apply to their own raw URL fields. Ads with no click_url are excluded. Not enriched with account_id/account_name — creative carries no advertiser_id of its own, and MNTN connections can span multiple advertiser accounts, so a date_day-only join would risk fanning out metrics. One row per URL per ad per day.
+    description: Daily performance report broken out by destination URL, parsed from creative_info.click_url. Ads with no click_url are excluded. One row per URL per ad per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -267,7 +267,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__segment_report
-    description: Daily audience/targeting-segment performance report. MNTN's audience concept, with no equivalent report type in other ad_reporting platforms (precedent — pinterest_ads__pin_promotion_report) — this is a standalone report, not unioned into any shared-schema layer. One row per segment per day.
+    description: Daily audience/targeting-segment performance report. One row per segment per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

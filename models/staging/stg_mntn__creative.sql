@@ -28,7 +28,6 @@ final as (
     select
         source_relation,
         day as date_day,
-        -- creative is MNTN's ad-equivalent and most granular metrics grain, mapped to the canonical ad_id.
         cast(id as {{ dbt.type_string() }}) as ad_id,
         name as ad_name,
         size as creative_size,
