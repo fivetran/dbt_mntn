@@ -1,0 +1,24 @@
+name: 'mntn'
+version: '0.1.0'
+
+config-version: 2
+require-dbt-version: [">=1.3.0", "<3.0.0"]
+
+models:
+  mntn:
+    +schema: mntn
+    +materialized: table
+    staging:
+      +schema: mntn_source
+      +materialized: table
+      tmp:
+        +materialized: view
+
+vars:
+  mntn__account_passthrough_metrics: []
+  mntn__campaign_passthrough_metrics: []
+  mntn__ad_group_passthrough_metrics: []
+  mntn__ad_passthrough_metrics: []
+  mntn__country_passthrough_metrics: []
+  mntn__region_passthrough_metrics: []
+  mntn__segment_passthrough_metrics: []

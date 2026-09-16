@@ -1,0 +1,27 @@
+_fivetran_deleted,_fivetran_synced,_fivetran_id,day,name,iso_code,impressions,visits,spend,conversions,order_value
+false,2025-06-01T08:00:00,mntn_country_ca_20250601,2025-06-01,Canada,CA,617,2,17.52,0,0.00
+false,2025-06-01T08:00:00,mntn_country_us_20250601,2025-06-01,United States,US,9185,36,239.59,2,116.83
+false,2025-06-08T08:00:00,mntn_country_us_20250608,2025-06-08,United States,US,14605,54,378.68,2,114.46
+false,2025-06-15T08:00:00,mntn_country_us_20250615,2025-06-15,United States,US,15867,60,467.51,3,160.91
+false,2025-06-22T08:00:00,mntn_country_us_20250622,2025-06-22,United States,US,16399,88,464.84,5,284.01
+false,2025-06-29T08:00:00,mntn_country_ca_20250629,2025-06-29,Canada,CA,1200,5,36.04,0,0.00
+false,2025-06-29T08:00:00,mntn_country_us_20250629,2025-06-29,United States,US,19014,69,514.47,4,215.49
+false,2025-07-06T08:00:00,mntn_country_us_20250706,2025-07-06,United States,US,13964,62,371.02,3,176.84
+false,2025-07-13T08:00:00,mntn_country_us_20250713,2025-07-13,United States,US,15540,72,404.68,3,158.67
+false,2025-07-20T08:00:00,mntn_country_us_20250720,2025-07-20,United States,US,14231,79,386.62,3,176.98
+false,2025-07-27T08:00:00,mntn_country_ca_20250727,2025-07-27,Canada,CA,1285,6,38.28,0,0.00
+false,2025-07-27T08:00:00,mntn_country_us_20250727,2025-07-27,United States,US,14978,66,432.74,4,220.13
+false,2025-08-03T08:00:00,mntn_country_us_20250803,2025-08-03,United States,US,19323,98,560.91,6,333.24
+false,2025-08-10T08:00:00,mntn_country_us_20250810,2025-08-10,United States,US,20869,80,608.37,3,161.89
+false,2025-08-17T08:00:00,mntn_country_us_20250817,2025-08-17,United States,US,7264,26,212.00,1,58.85
+false,2025-08-24T08:00:00,mntn_country_ca_20250824,2025-08-24,Canada,CA,719,3,18.85,0,0.00
+false,2025-08-24T08:00:00,mntn_country_us_20250824,2025-08-24,United States,US,7827,35,222.47,2,117.85
+false,2025-11-02T08:00:00,mntn_country_us_20251102,2025-11-02,United States,US,12490,75,348.27,4,239.62
+false,2025-11-09T08:00:00,mntn_country_us_20251109,2025-11-09,United States,US,13281,74,401.21,4,246.94
+false,2025-11-16T08:00:00,mntn_country_ca_20251116,2025-11-16,Canada,CA,945,3,25.78,0,0.00
+false,2025-11-16T08:00:00,mntn_country_us_20251116,2025-11-16,United States,US,15808,74,408.81,4,230.22
+false,2025-11-23T08:00:00,mntn_country_us_20251123,2025-11-23,United States,US,16730,64,488.54,2,107.40
+false,2025-11-30T08:00:00,mntn_country_us_20251130,2025-11-30,United States,US,17015,80,444.45,4,229.64
+false,2025-12-07T08:00:00,mntn_country_us_20251207,2025-12-07,United States,US,19228,118,569.74,6,332.58
+false,2025-12-14T08:00:00,mntn_country_ca_20251214,2025-12-14,Canada,CA,1132,4,29.29,0,0.00
+false,2025-12-14T08:00:00,mntn_country_us_20251214,2025-12-14,United States,US,18717,86,562.46,5,269.75
