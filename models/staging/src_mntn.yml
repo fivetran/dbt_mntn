@@ -211,12 +211,12 @@ sources:
 
       - name: campaign_info
         identifier: "{{ var('mntn_campaign_info_identifier', 'campaign_info') }}"
-        description: Daily metadata snapshot at the campaign_id grain, including flight scheduling and status. Added by MNTN in February 2026 to replace campaign_group_info. Relationship of campaign_id to campaign_group_id is unconfirmed — see the package README for details.
+        description: Daily metadata snapshot at the campaign_id grain, including flight scheduling and status. Added by MNTN in February 2026 to replace campaign_group_info.
         columns:
           - name: day
             description: "{{ doc('date_day') }}"
           - name: campaign_id
-            description: Unique identifier for the campaign, at MNTN's finer campaign_id grain (distinct from campaign_group_id — see the package README).
+            description: Unique identifier for the campaign, at MNTN's finer campaign_id grain (distinct from campaign_group_id).
           - name: name
             description: "{{ doc('campaign_name') }}"
           - name: status

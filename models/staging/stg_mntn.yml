@@ -74,7 +74,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: stg_mntn__campaign_info
-    description: Cleaned and renamed daily metadata snapshot at MNTN's finer campaign_id grain, including flight scheduling and status. Not currently joined to mntn__campaign_report — the cardinality between this table's campaign_id and campaign_group's campaign_id is unconfirmed. One row per campaign per day.
+    description: Cleaned and renamed daily metadata snapshot at MNTN's finer campaign_id grain, including flight scheduling and status. One row per campaign per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -83,7 +83,7 @@ models:
         tests:
           - not_null
       - name: campaign_id
-        description: Unique identifier for the campaign, at MNTN's finer campaign_id grain — a distinct id space from campaign_group's campaign_id (see model description).
+        description: Unique identifier for the campaign, at MNTN's finer campaign_id grain — a distinct id space from campaign_group's campaign_id.
         tests:
           - not_null
       - name: campaign_name
@@ -204,7 +204,7 @@ models:
         description: Timestamp when the ad-serving tag was created.
 
   - name: stg_mntn__analytics_by_country
-    description: Cleaned and renamed daily account-level performance metrics broken out by country. No campaign_id — MNTN's legacy API returns one table/dimension per request, so geo breakdowns cannot be crossed with campaign. One row per country per day.
+    description: Cleaned and renamed daily account-level performance metrics broken out by country. One row per country per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -233,7 +233,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: stg_mntn__analytics_by_state
-    description: Cleaned and renamed daily account-level performance metrics broken out by state/province. No campaign_id — MNTN's legacy API returns one table/dimension per request, so geo breakdowns cannot be crossed with campaign. One row per state/province per day.
+    description: Cleaned and renamed daily account-level performance metrics broken out by state/province. One row per state/province per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
