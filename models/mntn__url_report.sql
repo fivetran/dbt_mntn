@@ -1,5 +1,5 @@
 -- Parsed with split_part for base_url, dbt_utils.get_url_host()/get_url_path(), and
--- mntn_extract_url_parameter() (dispatched to a spark-safe regexp_extract implementation on
+-- dbt_utils.get_url_parameter() (dispatched to a spark-safe regexp_extract implementation on
 -- Databricks) for UTM extraction. MNTN exposes no native UTM columns, so this is the only source.
 -- Requires both creative and creative_info. Disabled entirely if either is unavailable, since the
 -- report has no purpose without a URL to report on.
@@ -30,11 +30,11 @@ urls as (
         {{ dbt.split_part('click_url', "'?'", 1) }} as base_url,
         {{ dbt_utils.get_url_host('click_url') }} as url_host,
         '/' || {{ dbt_utils.get_url_path('click_url') }} as url_path,
-        {{ mntn_extract_url_parameter('click_url', 'utm_source') }} as utm_source,
-        {{ mntn_extract_url_parameter('click_url', 'utm_medium') }} as utm_medium,
-        {{ mntn_extract_url_parameter('click_url', 'utm_campaign') }} as utm_campaign,
-        {{ mntn_extract_url_parameter('click_url', 'utm_content') }} as utm_content,
-        {{ mntn_extract_url_parameter('click_url', 'utm_term') }} as utm_term
+        {{ dbt_utils.get_url_parameter('click_url', 'utm_source') }} as utm_source,
+        {{ dbt_utils.get_url_parameter('click_url', 'utm_medium') }} as utm_medium,
+        {{ dbt_utils.get_url_parameter('click_url', 'utm_campaign') }} as utm_campaign,
+        {{ dbt_utils.get_url_parameter('click_url', 'utm_content') }} as utm_content,
+        {{ dbt_utils.get_url_parameter('click_url', 'utm_term') }} as utm_term
     from creative_info
     where click_url is not null
 
