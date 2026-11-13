@@ -15,7 +15,7 @@ This dbt package transforms data from Fivetran's MNTN connector into analytics-r
   - [DAG](https://fivetran.github.io/dbt_mntn/#!/overview?g_v=1)
   - [Changelog](https://github.com/fivetran/dbt_mntn/blob/main/CHANGELOG.md)
 - dbt Core™ supported versions
-  - `>=1.3.0, <3.0.0`
+  - `>=1.10.0, <3.0.0`
 
 ## What does this dbt package do?
 This package enables you to better understand the performance of your MNTN connected TV and streaming ads across varying grains and produces modeled tables that leverage MNTN data. It creates enriched models with metrics focused on account, campaign, ad group, ad, geographic (country/state), destination URL, and audience-segment reporting.
@@ -68,7 +68,7 @@ Include the following mntn package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/mntn
-    version: [">=0.1.0", "<0.2.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.2.0", "<0.3.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 #### Databricks Dispatch Configuration
@@ -198,7 +198,7 @@ The Fivetran team maintaining this package only maintains the latest version of 
 ### Contributions
 A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions.
 
-We highly encourage and welcome contributions to this package. Learn how to contribute to a package in dbt's [Contributing to an external dbt package article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657).
+We highly encourage and welcome contributions to this package. Learn how to contribute to a package by reading the guidelines in our [CONTRIBUTING.md](https://github.com/fivetran/dbt_mntn/blob/main/CONTRIBUTING.md) document.
 
 #### Contributors
 We thank [everyone](https://github.com/fivetran/dbt_mntn/graphs/contributors) who has taken the time to contribute. Each PR, bug report, and feature request has made this package better and is truly appreciated.
