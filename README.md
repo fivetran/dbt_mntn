@@ -68,7 +68,7 @@ Include the following mntn package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/mntn
-    version: [">=0.3.0", "<0.4.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.2.0", "<0.3.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 #### Databricks Dispatch Configuration
