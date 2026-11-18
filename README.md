@@ -190,6 +190,7 @@ packages:
     - package: dbt-labs/spark_utils
       version: [">=0.3.0", "<0.4.0"]
 ```
+
 <!--section="mntn_maintenance"-->
 ## How is this package maintained and can I contribute?
 ### Package Maintenance
