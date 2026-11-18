@@ -109,6 +109,7 @@ vars:
       schema: connection_2_schema_name
       name: connection_2_source_name
 ```
+
 > NOTE: The native `src_mntn.yml` connection set up in the package will not function when the union feature is utilized. Although the data will be correctly combined, you will not observe the sources linked to the package models in the Directed Acyclic Graph (DAG). This happens because the package includes only one defined `src_mntn.yml`.
 
 To connect your multiple schema/database sources to the package models, follow the steps outlined in the [Union Data Defined Sources Configuration](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#union_data-source) section of the Fivetran Utils documentation for the `union_connections` macro. This will ensure a proper configuration and correct visualization of connections in the DAG.
