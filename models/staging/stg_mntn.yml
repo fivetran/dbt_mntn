@@ -261,6 +261,12 @@ models:
 
   - name: stg_mntn__analytics_by_country
     description: Cleaned and renamed daily account-level performance metrics broken out by country. One row per country per day.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - _fivetran_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -268,7 +274,6 @@ models:
         description: "{{ doc('fivetran_id') }}"
         tests:
           - not_null
-          - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
         tests:
@@ -290,6 +295,12 @@ models:
 
   - name: stg_mntn__analytics_by_state
     description: Cleaned and renamed daily account-level performance metrics broken out by state/province. One row per state/province per day.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - _fivetran_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -297,7 +308,6 @@ models:
         description: "{{ doc('fivetran_id') }}"
         tests:
           - not_null
-          - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
         tests:
@@ -356,6 +366,13 @@ models:
 
   - name: stg_mntn__segment_info
     description: Cleaned and renamed daily metadata snapshot for audience segments, including the segment's interest category and description. One row per segment per day.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - date_day
+              - segment_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
