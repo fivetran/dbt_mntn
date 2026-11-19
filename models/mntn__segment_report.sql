@@ -15,7 +15,7 @@ segment_info as (
 final as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['segment.source_relation', 'segment.date_day', 'segment.segment_id']) }} as segment_report_id,
+        {{ dbt_utils.generate_surrogate_key(['segment.source_relation', 'segment.date_day', 'segment.segment_id', 'coalesce(segment.segment_name, segment_info.segment_name)']) }} as segment_report_id,
         segment.source_relation,
         segment.date_day,
         segment.segment_id,
