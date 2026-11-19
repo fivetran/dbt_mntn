@@ -332,7 +332,7 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: stg_mntn__segment
-    description: Cleaned and renamed daily audience/targeting-segment performance metrics. One row per segment per day.
+    description: Cleaned and renamed daily audience/targeting-segment performance metrics. One row per segment and segment name per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
