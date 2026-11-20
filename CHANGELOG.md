@@ -10,7 +10,7 @@
 | mntn__segment_report | Changed field/model | `segment_report_id` is a surrogate key of `source_relation`, `date_day`, and `segment_id`. | `segment_report_id` is a surrogate key of `source_relation`, `date_day`, `segment_id`, and `segment_name`. | A segment can have more than one name on the same day, so the old key could repeat. The key now matches the primary key of the source `segment` table (`day`, `id`, and `name`). Existing `segment_report_id` values change. The model now has a `unique` test on `segment_report_id`. |
 
 ## Feature Update
-- **Breaking change**: Raises the minimum dbt version to 1.10.0.
+- Raises the minimum dbt version to 1.10.0.
 - Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_mntn/issues/new/choose).
 
 # dbt_mntn v0.1.0
