@@ -5,17 +5,12 @@ schema_data_changes:
   - models:
     - mntn__segment_report
     change_type: Changed field/model
-    old: '`segment_report_id` is a surrogate key of `source_relation`, `date_day`,
-      and `segment_id`.'
-    new: '`segment_report_id` is a surrogate key of `source_relation`, `date_day`,
-      `segment_id`, and `segment_name`.'
+    old: '`segment_report_id` is a surrogate key of `source_relation`, `date_day`, and `segment_id`.'
+    new: '`segment_report_id` is a surrogate key of `source_relation`, `date_day`, `segment_id`, and `segment_name`.'
     is_breaking: false
-    notes: A segment can have more than one name on the same day, so the old key could
-      repeat. The key now matches the primary key of the source `segment` table (`day`,
-      `id`, and `name`). Existing `segment_report_id` values change. The model now
-      has a `unique` test on `segment_report_id`.
+    notes: A segment can have more than one name on the same day, so the old key could repeat. The key now matches the primary key of the source `segment` table (`day`, `id`, and `name`). Existing `segment_report_id` values change. The model now has a `unique` test on `segment_report_id`.
 new_features:
-- description: Raises the minimum dbt version to 1.10.0.
-- description: Adds `dbt_utils.unique_combination_of_columns` tests to staging and
-    end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_mntn/issues/new/choose).
+- title: Breaking change
+  description: Raises the minimum dbt version to 1.10.0.
+- description: Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_mntn/issues/new/choose).
 date: '2026-11-18'

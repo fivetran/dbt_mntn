@@ -15,11 +15,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: "{{ doc('account_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_name
         description: "{{ doc('account_name') }}"
@@ -48,11 +48,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: "{{ doc('account_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_name
         description: "{{ doc('account_name') }}"
@@ -75,11 +75,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_id
         description: "{{ doc('campaign_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_name
         description: "{{ doc('campaign_name') }}"
@@ -108,11 +108,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_id
         description: Unique identifier for the campaign, at MNTN's finer campaign_id grain — a distinct id space from campaign_group's campaign_id.
-        tests:
+        data_tests:
           - not_null
       - name: campaign_name
         description: "{{ doc('campaign_name') }}"
@@ -141,11 +141,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_group_id
         description: "{{ doc('ad_group_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_group_name
         description: "{{ doc('ad_group_name') }}"
@@ -174,11 +174,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_id
         description: "{{ doc('ad_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: "{{ doc('ad_name') }}"
@@ -209,11 +209,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_id
         description: "{{ doc('ad_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: "{{ doc('ad_name') }}"
@@ -236,11 +236,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_id
         description: "{{ doc('ad_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: "{{ doc('ad_name') }}"
@@ -272,11 +272,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: _fivetran_id
         description: "{{ doc('fivetran_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: country
         description: Name of the country.
@@ -306,11 +306,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: _fivetran_id
         description: "{{ doc('fivetran_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: region
         description: Name of the state or province.
@@ -338,20 +338,20 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: segment_report_pk
         description: Surrogate key derived from source_relation, date_day, segment_id, and segment_name.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: segment_id
         description: Unique identifier for the audience segment.
-        tests:
+        data_tests:
           - not_null
       - name: segment_name
         description: Name of the audience segment.
-        tests:
+        data_tests:
           - not_null
       - name: impressions
         description: "{{ doc('impressions') }}"
@@ -378,11 +378,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: segment_id
         description: Unique identifier for the audience segment.
-        tests:
+        data_tests:
           - not_null
       - name: segment_name
         description: Name of the audience segment.
