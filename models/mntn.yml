@@ -267,12 +267,12 @@ models:
         description: "{{ doc('conversions_value') }}"
 
   - name: mntn__segment_report
-    description: Daily audience/targeting-segment performance report. One row per segment per day.
+    description: Daily audience/targeting-segment performance report. One row per segment and segment name per day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: segment_report_id
-        description: Surrogate key derived from source_relation, date_day, and segment_id.
+        description: Surrogate key derived from source_relation, date_day, segment_id, and segment_name.
         tests:
           - not_null
           - unique
