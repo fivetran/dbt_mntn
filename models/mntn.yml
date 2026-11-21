@@ -8,16 +8,16 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: account_report_id
         description: Surrogate key derived from source_relation, date_day, and account_id.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_id
         description: "{{ doc('account_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: account_name
         description: "{{ doc('account_name') }}"
@@ -41,16 +41,16 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: campaign_report_id
         description: Surrogate key derived from source_relation, date_day, and campaign_id.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_id
         description: "{{ doc('campaign_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_name
         description: "{{ doc('campaign_name') }}"
@@ -72,16 +72,16 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ad_group_report_id
         description: Surrogate key derived from source_relation, date_day, and ad_group_id.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_group_id
         description: "{{ doc('ad_group_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_group_name
         description: "{{ doc('ad_group_name') }}"
@@ -103,16 +103,16 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ad_report_id
         description: Surrogate key derived from source_relation, date_day, and ad_id.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_id
         description: "{{ doc('ad_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: "{{ doc('ad_name') }}"
@@ -154,12 +154,12 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: country_report_id
         description: Surrogate key derived from source_relation, date_day, and country.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_id
         description: Always null — MNTN's country breakdown has no campaign-level grain.
@@ -187,12 +187,12 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: region_report_id
         description: Surrogate key derived from source_relation, date_day, and region.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: campaign_id
         description: Always null — MNTN's region breakdown has no campaign-level grain.
@@ -224,16 +224,16 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: url_report_id
         description: Surrogate key derived from source_relation, date_day, and ad_id.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_id
         description: "{{ doc('ad_id') }}"
-        tests:
+        data_tests:
           - not_null
       - name: ad_name
         description: "{{ doc('ad_name') }}"
@@ -273,16 +273,16 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: segment_report_id
         description: Surrogate key derived from source_relation, date_day, segment_id, and segment_name.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: date_day
         description: "{{ doc('date_day') }}"
-        tests:
+        data_tests:
           - not_null
       - name: segment_id
         description: Unique identifier for the audience segment.
-        tests:
+        data_tests:
           - not_null
       - name: segment_name
         description: Name of the audience segment.
