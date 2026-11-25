@@ -1,0 +1,12 @@
+version: 0.3.0
+schema_data_changes:
+  entries:
+    - models:
+        - mntn__segment_report
+      change_type: "Changed field/model"
+      old: "`segment_report_id` is a surrogate key of `source_relation`, `date_day`, and `segment_id`."
+      new: "`segment_report_id` is a surrogate key of `source_relation`, `date_day`, `segment_id`, and `segment_name`."
+      is_breaking: false
+      notes: The key now matches the source `segment` table, which can have more than one name for a segment on the same day. Before this change, those rows had the same `segment_report_id`. All `segment_report_id` values change.
+under_the_hood:
+  - description: Adds back the `unique` test on `mntn__segment_report.segment_report_id`.
